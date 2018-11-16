@@ -12,61 +12,56 @@
         <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
       </header>
 
-      <!-- Page Features -->
-      <div class="row text-center">
+        <!-- Page Content -->
+    <div class="container mt-5">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>
-          </div>
-        </div>
+      <div class="row">
+   
+        <?php 
+          //connect to database
+          require "controllers/connect.php";
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>
-          </div>
-        </div>
+          //make sql statement to select all columns in tbl_items
+          $sql = "SELECT * FROM tbl_items LIMIT 4";
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>
-          </div>
-        </div>
+          //get data and assign to result variable
+          $result = mysqli_query($conn,$sql);
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>
-          </div>
-        </div>
+          //check if may laman and if meron saka ka magloop
+          if(mysqli_num_rows($result) > 0){
+            //put result in associative array and assign to row variable
+            while($row = mysqli_fetch_assoc($result)){
+              $name = $row['name'];
+              //test. if it works, proceed to assign other columns to  variables
+              // echo $name . "<br>";
+              $price = $row['price'];
+              $description = $row['description'];
+              $item_img = $row['img_path'];
 
+              echo "
+              <div class='col-lg-3 col-md-4 mb-5 text-center'>
+                <div class = 'card h-700'>
+                  <img src='$row[img_path]'>
+                  <div class='card-body'>
+                    <h4 class='card-title font-weight-bold'>$row[name]</h4>
+                    <h5>&#8369; $row[price]</h5>
+                    
+                  </div>
+                  <div class='card-footer'>
+
+                  
+
+                  <button class='btn btn-primary btn-block font-weight-bold'>
+                    <i class='fas fa-cart-plus'></i>
+                    Add to Cart
+                  </button>
+                  </div>
+                </div>
+              </div>";
+            }
+          }
+
+        ?>
       </div>
       <!-- /.row -->
 
@@ -74,4 +69,17 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <?php include "partials/footer.php" ;?>
+    <footer class="py-5 bg-dark fixed-bottom">
+      <div class="container">
+        <p class="m-0 text-center text-white font-weight-bold">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

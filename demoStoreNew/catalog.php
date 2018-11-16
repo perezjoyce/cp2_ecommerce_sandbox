@@ -27,19 +27,22 @@
 	      			$item_img = $row['img_path'];
 
 	      			echo "
-		      			<div class='col-lg-3 mb-5'>
+		      			<div class='col-lg-3 col-md-4 mb-5'>
 		      				<div class = 'card h-700'>
 		      					<img src='$row[img_path]'>
 		      					<div class='card-body'>
-		      						<h4 class='card-title'>$row[name]</h4>
-		      						<h5>&#8369; $row[price]</h5>
-		      						<p>$row[description]</p>
+		      						<h4 class='card-title font-weight-bold'>$name</h4>
+		      						<h5 class='font-weight-bold'>&#8369; $row[price]</h5>
+		      						<p>$description</p>
 		      					</div>
 		      					<div class='card-footer'>
 
 		      					<input type='number' class='form-control mb-3'>
 
-	      						<button class='btn btn-primary btn-block'>Add to Cart</button>
+	      						<button class='btn btn-primary btn-block font-weight-bold'>
+	      							<i class='fas fa-cart-plus'></i>
+	      							Add to Cart
+	      						</button>
 		      					</div>
 		      				</div>
 		      			</div>";
