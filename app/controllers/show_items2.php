@@ -2,18 +2,13 @@
 	// connect to database
 	include_once "connect.php";
 
-	// receive value and assign to variable
 	$categoryId = $_POST['categoryId'];
 
-	// query database using variable
-	$sql= "SELECT * FROM tbl_items WHERE category_id = '$categoryId'";
-
-	//get all results and assign to variable
-	$result = mysqli_query($conn, $sql);
-
+	$sql = "SELECT * FROM tbl_categories WHERE category_id = $categoryId";
+	$result = mysqli_query($conn,$sql);
 	$data = '';
-	// loop if resuls is >=1
-	if(mysqli_num_rows($result) > 0) {
+	if(mysqli_num_rows($result) > 0){
+
 		while($row = mysqli_fetch_assoc($result)){
 			$name = $row['name'];
 		
@@ -42,9 +37,13 @@
 		      				</div>
 		      			</div>";
 		}
+	} else {
+		$data = "No records found!";
 	}
 
 	echo $data;
+
+	// var_dump($data); die();
 
 
 ?>

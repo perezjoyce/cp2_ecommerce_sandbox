@@ -20,6 +20,7 @@
 	      			$name = $row['name'];
 	      			//test. if it works, proceed to assign other columns to  variables
 	      			// echo $name . "<br>";
+	      			$id = $row['id'];
 	      			$price = $row['price'];
 	      			$description = $row['description'];
 	      			$item_img = $row['img_path'];
@@ -29,7 +30,14 @@
 		      				<div class = 'card h-700'>
 		      					<img src='$row[img_path]'>
 		      					<div class='card-body'>
-		      						<h4 class='card-title font-weight-bold'>$name</h4>
+		      						<h4 class='card-title font-weight-bold'>
+		      						
+		      						<h4 class='card-title font-weight-bold'>
+				                    	<a href='product.php?id=$id'>
+				                    		$name
+				                    	</a>
+			                   
+		      						</h4>
 		      						<h5 class='font-weight-bold'>&#8369; $row[price]</h5>
 		      						<p>$description</p>
 		      					</div>

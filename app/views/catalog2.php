@@ -18,16 +18,19 @@
 			      
 			      	$sql = "SELECT * FROM tbl_categories WHERE id = $id";
 			      	$result = mysqli_query($conn,$sql);
-	            	$row = mysqli_fetch_assoc($result);
-	               
-	                $name = $row['name']; 
-
-	               	if(!$id || $row === true || $row ===false || !$result) {
+	       
+			      	$bool = false;
+	                
+	               	if(!$id || $result === $bool) {
 
 	                	echo "<h1 class='my-5'>Categories</h1>";
 	               	} else {
+	               		$row = mysqli_fetch_assoc($result);
+	                	$name = $row['name']; 
 	               		echo "<h1 class='my-5'>$name</h1>";
 	               	}
+
+
 
 			      			
 
@@ -41,14 +44,16 @@
 			      		while($row = mysqli_fetch_assoc($result)){
 			      			$name = $row['name'];
 			      			$id = $row['id'];
-			      			
+
 			      				echo 
 			      				"<div class='list-group'>
-				      				<a href='catalog2.php?id=$id' class='list-group-item' onclick='showCategories($id)'>
+				      				<button class='list-group-item' onclick='showCategories($id) id=$id'>
 				      				
-				      					$name
+				      					<a href='catalog2.php?id=$id'>
+				      						$name
+				      					</a>
 
-				      				</a>
+				      				</button>
 			      				</div>";
 
 			      		}
@@ -57,72 +62,114 @@
 			      	}
 
 		     ?>
-				
+
+		     <!-- PRICE INPUT -->
+		     	<div class='mt-5'>
+		     		<h4 class='mb-2'>PRICE</h4>
+		     		<!-- <input type='number' class='form-control'> -->
+		     	</div>
+			
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <label class="input-group-text" for="inputGroupSelect01">&#8369;</label>
+				  </div>
+				  <select class="custom-select" id="priceRange">
+				    <option selected>......</option>
+				 
+				    <option value="lowestToHighest"> Lowest to Highest </option>
+				    <option value="highestToLowest"> Highest to Lowest </option>
+				  
+				  </select>
+				</div>
 			</div>
+
+
+
+			
+		
 			 <!-- END OF LEFT COLUMN -->
 
 
 			<div class="col-lg-9">
-				
 
-				<!-- copy paste from catalog.php -->
+				<div class="row">
+				
+					<div class="input-group input-group-lg my-5">
+					  
+					  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="search">
+
+					  <div class="input-group-append">
+					    <span class="input-group-text" id="inputGroup-sizing-lg">
+					    	<i class="fas fa-search"></i>
+					    </span>
+					  </div>
+
+					</div>
+				</div>
+
+	
+
+				<!-- DIPLAYS PRODUCTS -->
 				<div class="row" id="products">
 
+   
+			        <?php 
 
-		   
-			      <?php 
-			      	
-			      	$id = $_GET['id'];
-			      	$sql = "SELECT * FROM tbl_items WHERE category_id = $id";
-			      	$result = mysqli_query($conn,$sql);
+			   		  $id = $_GET['id'];
+			          //make sql statement to select all columns in tbl_items
+			          $sql = "SELECT * FROM tbl_items";
 
-			       	if(mysqli_num_rows($result) > 0){
-			      		//put result in associative array and assign to row variable
-			      		while($row = mysqli_fetch_assoc($result)){
-			      			$id = $row['id'];
-			      			$name = $row['name'];
-			      			$price = $row['price'];
-			      			$description = $row['description'];
-			      			$item_img = $row['img_path'];
+			          //get data and assign to result variable
+			          $result = mysqli_query($conn,$sql);
 
-			      			echo "
-				      			<div class='col-lg-4 col-md-6 mt-5'>
-				      				<div class = 'card h-700'>
-				      					<img src='$item_img'>
-				      					<div class='card-body'>
-				      						<h4 class='card-title font-weight-bold'>
-				      							<a href='product.php?id=$id'>$name</a>
-				      						</h4>
-				      						<h5 class='font-weight-bold'>&#8369; $price</h5>
-				      						<p>$description</p>
-				      					</div>
-				      					<div class='card-footer'>
+			          //check if may laman and if meron saka ka magloop
+			          if(mysqli_num_rows($result) > 0){
+			            //put result in associative array and assign to row variable
+			            while($row = mysqli_fetch_assoc($result)){
+			            	$id = $row['id'];
+			              	$name = $row['name'];
+			              //test. if it works, proceed to assign other columns to  variables
+			              // echo $name . "<br>";
+			              $price = $row['price'];
+			              $description = $row['description'];
+			              $img_path = $row['img_path'];
 
-				      					<input type='number' class='form-control mb-3'>
+			              echo "
+			              <div class='col-lg-3 col-md-3 mb-5 mx-1 text-center'>
+			                <div class = 'card h-700'>
+			                  <img src='$img_path'>
+			                  <div class='card-body'>
+			                    <h4 class='card-title font-weight-bold'>
+			                    	<a href='product.php?id=$id'>
+			                    		$name
+			                    	</a>
+			                    </h4>
+			                    <h5>&#8369; $price</h5>
+			                    
+			                  </div>
+			                  <div class='card-footer'>
 
-			      						<a href='cart.php?id=$id' type='button' class='btn btn-primary btn-block font-weight-bold'>
-			      							<i class='fas fa-cart-plus'></i>
-			      							Add to Cart
-			      						</a>
-				      					</div>
-				      				</div>
-				      			</div>";
+			                  
 
+			                  <button class='btn btn-primary btn-block font-weight-bold'>
+			                    <i class='fas fa-search'></i>
+			                    View Product
+			                  </button>
+			                  </div>
+			                </div>
+			              </div>";
+			            }
+			          }
 
-			      		}
-			      	} else {
-			      		echo "hey";
-			      	}
-
-			      	?>
-			     </div>
-		      	<!-- /.row -->
-
-
+			        ?>
+  
+			    
+			    </div>
+		      
 
 
 			</div>
-			<!-- end of second col -->
+			<!-- /. RIGHT COLUMN -->
 
 
 		</div>
@@ -131,25 +178,7 @@
 	</div>
 	<!-- /.container -->
 
-
- <script type="text/javascript">
 	
-	function showCategories(categoryId) {
-			// alert(categoryId);
-			$.ajax({
-				url: "controllers/show_items.php",
-				method: "POST",
-				data: {categoryId:categoryId},
-				dataType: "text",
-				success: (data) => {
-					$('#products').html('');
-					// $('#products').html(data);
-				}
-			})
-		}
-
-</script>
-
 
 
 <?php include "../partials/footer.php";?>

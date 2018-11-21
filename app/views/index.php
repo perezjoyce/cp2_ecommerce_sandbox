@@ -28,6 +28,7 @@
           if(mysqli_num_rows($result) > 0){
             //put result in associative array and assign to row variable
             while($row = mysqli_fetch_assoc($result)){
+               $id = $row['id'];
               $name = $row['name'];
               //test. if it works, proceed to assign other columns to  variables
               // echo $name . "<br>";
@@ -40,7 +41,11 @@
                 <div class = 'card h-700'>
                   <img src='$img_path'>
                   <div class='card-body'>
-                    <h4 class='card-title font-weight-bold'>$name</h4>
+                    <h4 class='card-title font-weight-bold'>
+                        <a href='product.php?id=$id'>
+                          $name
+                        </a>
+                    </h4>
                     <h5>&#8369; $price</h5>
                     
                   </div>
