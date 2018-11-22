@@ -53,7 +53,7 @@
               <a class="nav-link text-light" href="#">Login</a>
             </li>
               <li class="nav-item">
-              <a class="nav-link text-light" href="#">Register</a>
+              <a class="nav-link text-light" href="register.php">Register</a>
             </li>
           </ul>
         </div>
