@@ -5,6 +5,12 @@
 	if (isset($_POST['email'])) {
 	$email = $_POST['email'];
 	
+	// ADD $user = filter_var($_POST['user'], FILTER_SANITIZE_STRING);
+	// $isValid = filter_var($user, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[a-zA-Z0-9]+$/")));
+
+	// if ($isValid) {
+	//     // do something
+	// }
 
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		 	echo "invalidEmail";
