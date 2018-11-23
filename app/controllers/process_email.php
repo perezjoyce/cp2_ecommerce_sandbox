@@ -1,30 +1,35 @@
 <?php
 
-// ================= ERROR MESSAGE WHEN INPUT FIELDS ARE LEFT BLANK ===============
-// ================= ERROR MESSAGE WHEN EMAIL HAS WRONG FORMAT ===============
-include_once "connect.php";
+	include_once "connect.php";
 
-$email = $_POST['email'];
+	if (isset($_POST['email'])) {
+	$email = $_POST['email'];
+	
 
-if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $sql = "SELECT * FROM tbl_users WHERE email ='$email'";
-  $result = mysqli_query($con, $sql);
-	$count = mysqli_num_rows($result);
-		if($count) {
-			echo "emailExists";
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		 	echo "invalidEmail";
 		} else {
-			$sql = "INSERT INTO tbl_users (email) VALUES ('$email)";
-			$result = mysqli_query($con,$sql);
 
-			if($result) {
-				echo "success";
-			} else {
-				echo "fail";
-			}
+		  $sql = "SELECT * FROM tbl_users WHERE email = '$email'";
+		  $result = mysqli_query($conn, $sql);
+		  $count = mysqli_num_rows($result);
+				if($count) {
+					echo "emailExists";
+				} else {
+					echo "success";
+				} 
 		}
-} else {
-  echo "invalidEmail";
-}
+	} else {
+		echo "process_email.php did not receive variable";
+		var_dump($email); die(); //NULL
+	}
+	
 
 
 ?>
+
+
+<!-- if($result) {
+		header("Location: index.php");
+	}
+ -->
