@@ -29,7 +29,6 @@
     }          
 ?>
     <!-- PAGE CONTENT -->
-
     <div class="container mt-5">
         <div class="row pt-5">
             <!-- SIDE BAR -->
@@ -40,7 +39,7 @@
                     </div>
                     <div class="col">
                         <div class="font-weight-bold mt-4"> <?= $username ?> </div>
-                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_profile_modal.php' role='button'>
+                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
                             <i class="far fa-edit"></i>
                             Edit Profile
                         </a>

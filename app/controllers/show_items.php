@@ -1,6 +1,6 @@
 <?php
 	// connect to database
-	include_once "connect.php";
+	require_once "connect.php";
 
 	// receive value and assign to variable
 	$categoryId = $_POST['categoryId'];

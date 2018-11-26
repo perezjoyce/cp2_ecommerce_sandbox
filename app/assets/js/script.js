@@ -44,8 +44,6 @@ $(document).ready( () => {
   	
     // REGISTRATION
 	$("#btn_register").click(()=>{
-
-		//$('#btn_submit').prop('disabled', true); // trial
 		
 		//get values
 		let fname = $("#fname").val();
@@ -249,6 +247,160 @@ $(document).ready( () => {
 	// 	});
 		
 	// });
+
+
+	$("#btn_edit_user").click(()=>{
+		
+		//get values
+		let id = $("#id").val();
+		let fname = $("#fname").val();
+		let lname = $("#lname").val();
+		let email = $("#email").val();
+		let username = $("#username").val();
+		let password = $("#password").val();
+		let countU = username.length;
+		let countP = password.length;
+		
+		console.log('id');
+
+		let error_flag = 0;
+
+		//First name verification
+		if(fname == ""){
+			$("#fname").next().html("First name is required!");
+			error_flag = 1;
+		} else {
+			$("#fname").next().html("");
+		}
+
+		//Last name verification
+		if(lname == ""){
+			$("#lname").next().html("Last name is required!");
+			error_flag = 1;
+		} else {
+			$("#lname").next().html("");
+		}
+
+		//email verification
+		if(email == ""){
+			$("#email").next().html("Email address is required!");
+			error_flag = 1;
+		} else {
+			$("#email").next().html("");
+		}
+
+		//username verification
+		if(username == ""){
+			$("#username").next().html("Username is required!");
+			error_flag = 1;
+		} else if (countU < 5) {
+			$("#username").next().html("Username should at least 5 characters!");
+			error_flag = 1;
+		} else {
+			$("#username").next().html("");
+		}
+
+		//password verification
+		if(password == ""){
+			$("#password").next().html("Password is required!");
+			error_flag = 1;
+		} else if (countP < 8) {
+			$("#password").next().html("Password should have more than 8 characters!");
+			error_flag = 1;
+		} else {
+			$("#password").next().html("");
+		}
+
+
+		if(error_flag == 0) {
+		
+			//CHECK EMAIL VALIDITY AND AVAILABILITY
+			//WHERE id != $id coz it might count its current id..u might need SELECT then if else
+			$.ajax({
+				"url": "../controllers/process_edit_email.php",
+				"data": { 
+							"email" : email,
+							"id" : id 
+						},
+				"type": "POST",
+				"success": (dataFromPHP) => {
+
+					if (dataFromPHP == "invalidEmail") {
+						$("#email").next().css("color", "red");
+						$("#email").next().html("Please enter a valid email."); 
+					} else if (datafromPHP == "sameEmail") {
+						$("#email").next().html(""); 
+					} else if (dataFromPHP == "emailExists") {
+						$("#email").next().css("color", "red");
+						$("#email").next().html("Email address already taken."); 
+
+					} else if (datafromPHP == "success"){
+						
+						// CHECK USERNAME AVAILABILITY
+						$.ajax({
+						"url": "../controllers/process_edit_uname.php",
+						"data": {
+								"username" : username,
+								"id" : id
+								},
+						"type": "POST",
+						"success": (dataFromPHP) => {
+							if (dataFromPHP == "sameUser") {
+								$("#username").next().html(""); 
+							} else if (datafromPHP == "userExists") {
+								$("#username").next().css("color", "red");
+								$("#username").next().html("User exists."); 
+							} else if (dataFromPHP == "success") {
+								
+								// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
+								$.ajax({
+									"url": "../controllers/process_edit_user.php",
+									"data": { 
+											"fname" : fname,
+											"lname" : lname,
+											"email" : email,
+											"username" : username,
+											"password" : password
+											 },
+									"type": "POST",
+									"success": (dataFromPHP) => {
+					
+										if (dataFromPHP == "incorrectPassword") {
+											$("#password").next().css("color", "red");
+											$("#password").next().html("Incorrect password."); 
+										 
+										} else if ($.parseJSON(dataFromPHP)) {
+											let data = $.parseJSON(dataFromPHP);
+											location.href="profile.php?id=" + data.id; 
+					
+										} else {
+											$("#edit_user_error").css("color", "red");
+											$("#edit_user_error").append("Error in password validation encountered.");	
+										} 
+									}
+								});
+
+
+							} else {
+								$("#edit_user_error").css("color", "red");
+								$("#edit_user_error").append("Error in username validation encountered."); 
+							}	
+						}
+						});
+
+					} else {
+						$("#edit_user_error").css("color", "red");
+						$("#edit_user_error").append("Error in email validation encountered."); 
+					}	
+				}
+			});
+		}
+
+	});
+
+
+	
+	
 
 
 	
