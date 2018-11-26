@@ -17,7 +17,7 @@
 
   ?>
 
-  <form action="../controllers/process_edit_user.php" method="POST" id="form_edit_user">
+  <form action="../controllers/process_edit_email.php" method="POST" id="form_edit_user">
     <!-- GET ID TO BE PASSED ON TO PROCESS_EDIT_USER -->
     <input type="hidden" name="id" id="id" value="<?= $id ?>">
 
@@ -38,7 +38,7 @@
 
     <div class="form-group">
       <label>Email</label>
-      <input type="email" class="form-control" id="email" name="email" value="<?= hide_email($email) ?>">
+      <input type="email" class="form-control" id="email" name="email" value="<?= $email ?>">
       <p class="validation text-danger"></p>
     </div>
         

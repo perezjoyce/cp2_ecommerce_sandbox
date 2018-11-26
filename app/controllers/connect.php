@@ -3,7 +3,7 @@
 	$host = "localhost";
 	$db_username = "root";
 	$db_password = "";
-	$db_name = "db_demoStoreNew2";
+	$db_name = "db_demoStoreNew";
 
 
 	//establish connection to database

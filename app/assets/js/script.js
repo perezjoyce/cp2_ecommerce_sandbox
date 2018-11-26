@@ -32,12 +32,24 @@ $(document).ready( () => {
   		let value = $(this).val();
 
   		//AJAX
-  		//parameters: saan ibabato, ano ibabato, what will happen afterwards
   		$.post("../controllers/search_price.php", {value:value},function(data){
-			// $('#products').html('');
   			$("#products").html(data);
   		})
-	  });
+	});
+
+	
+	
+	// PUTTING ITEMS ON SHOPPING CART
+	$(document).on("click", "#btn_add_to_cart", function(e){
+		e.preventDefault();
+		let value = $(' #btn_add_to_cart ').val();
+		console.log(value);
+
+		// //AJAX
+		// $.post("../controllers/search_price.php", {value:value},function(data){
+		// 	$("#products").html(data);
+		// })
+  });
 
 	  
 	
@@ -248,19 +260,24 @@ $(document).ready( () => {
 		
 	// });
 
+	$(document).on('submit', '#form_edit_user', function(e){
+		e.preventDefault();
+		processEditForm();
+	});
 
-	$("#btn_edit_user").click(()=>{
-		
+
+	function processEditForm() {
 		//get values
 		let fname = $("#fname").val();
 		let lname = $("#lname").val();
 		let email = $("#email").val();
 		let username = $("#username").val();
 		let password = $("#password").val();
+		let id = $("#id").val();
 		let countU = username.length;
 		let countP = password.length;
 		
-		console.log('id');
+		// console.log('id');
 
 		let error_flag = 0;
 
@@ -292,9 +309,6 @@ $(document).ready( () => {
 		if(username == ""){
 			$("#username").next().html("Username is required!");
 			error_flag = 1;
-		} else if (countU < 5) {
-			$("#username").next().html("Username should at least 5 characters!");
-			error_flag = 1;
 		} else {
 			$("#username").next().html("");
 		}
@@ -302,9 +316,6 @@ $(document).ready( () => {
 		//password verification
 		if(password == ""){
 			$("#password").next().html("Password is required!");
-			error_flag = 1;
-		} else if (countP < 8) {
-			$("#password").next().html("Password should have more than 8 characters!");
 			error_flag = 1;
 		} else {
 			$("#password").next().html("");
@@ -318,41 +329,39 @@ $(document).ready( () => {
 			$.ajax({
 				"url": "../controllers/process_edit_email.php",
 				"data": { 
-							"email" : email
-						},
+						"email" : email,
+						"id": id
+					},
 				"type": "POST",
 				"success": (dataFromPHP) => {
 
 					if (dataFromPHP == "invalidEmail") {
 						$("#email").next().css("color", "red");
 						$("#email").next().html("Please enter a valid email."); 
-					} else if (datafromPHP == "sameEmail") {
-						$("#email").next().html(""); 
 					} else if (dataFromPHP == "emailExists") {
 						$("#email").next().css("color", "red");
 						$("#email").next().html("Email address already taken."); 
-
-					} else if (datafromPHP == "success"){
+					} else if (dataFromPHP == "sameEmail" || dataFromPHP == "success"){
 						
 						// CHECK USERNAME AVAILABILITY
 						$.ajax({
 						"url": "../controllers/process_edit_uname.php",
 						"data": {
-								"username" : username
+								"username" : username,
+								"id": id
 								},
 						"type": "POST",
 						"success": (dataFromPHP) => {
-							if (dataFromPHP == "sameUser") {
-								$("#username").next().html(""); 
-							} else if (datafromPHP == "userExists") {
+							if (dataFromPHP == "userExists") {
 								$("#username").next().css("color", "red");
 								$("#username").next().html("User exists."); 
-							} else if (dataFromPHP == "success") {
+							} else if (dataFromPHP == "success" || dataFromPHP == "sameUser") {
 								
 								// CHECK CORRECTNESS OF PASSWORD AND IF CORRECT UPDATE DATA
 								$.ajax({
 									"url": "../controllers/process_edit_user.php",
 									"data": { 
+											"id" : id,
 											"fname" : fname,
 											"lname" : lname,
 											"email" : email,
@@ -392,10 +401,7 @@ $(document).ready( () => {
 				}
 			});
 		}
-
-	});
-
-
+	}
 	
 	
 

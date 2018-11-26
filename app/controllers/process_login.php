@@ -18,7 +18,6 @@ if (isset($_POST['username'])) {
 	if($count == 1) {
 		// SESSION
 		$_SESSION['id'] = $id; 
-
 		$response = ['status' => 'loggedIn', 'id' => $id];
 
 	} else {

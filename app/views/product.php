@@ -9,6 +9,7 @@
   $result = mysqli_query($conn,$sql);
   $row = mysqli_fetch_assoc($result);
 
+  $id = $row['id'];    
   $name = $row['name'];     
   $price = $row['price'];
   $description = $row['description'];
@@ -18,6 +19,7 @@
     <!-- PAGE CONTENT -->
     <div class="container-fluid">
       <div class="row pt-5 mt-5">
+      <input type="hidden" id="$id">
  
         <div class='container d-inline-flex'>
           <div class='d-flex flex-row mr-5'>
@@ -31,10 +33,10 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
-                <button class='btn btn-outline-primary mt-3 flex-fill mr-2'>
+                <a class='modal-link btn btn-outline-primary mt-3 flex-fill mr-2' href='#' value='<?= $id ?>' data-id='<?= $id ?>' data-url='../partials/templates/cart_modal.php' role='button' id="btn_add_to_cart">
                   <i class='fas fa-cart-plus'></i>
                   Add to Cart
-                </button>
+                </a>
 
                 <button class='btn btn-outline-danger mt-3 flex-fill'>
                   <i class="far fa-heart"></i>

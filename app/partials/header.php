@@ -44,7 +44,8 @@
               </a>
             </li>
             <li class="nav-item mr-5">
-              <a class="nav-link text-light" href="#">
+              <!-- MERELY DISPLAYS CURRENT ID OF EITHER USER OR ITEM -->
+              <a class='nav-link modal-link text-light' href='#' data-id='<?= $_GET['id'] ?>' data-url='../partials/templates/cart_modal.php' role='button'>
                 <i class="fas fa-cart-plus"></i>
                 Cart
               </a>
