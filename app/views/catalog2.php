@@ -1,4 +1,4 @@
-<?php include "../partials/header.php";?>
+<?php include_once "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 
 
@@ -14,7 +14,7 @@
 				<?php 
 
 					// DISPLAYING CATEGORY ON TOP OF LIST GROUP
-					$id = $_GET['id'];
+					$id = @$_GET['id'];
 			      
 			      	$sql = "SELECT * FROM tbl_categories WHERE id = $id";
 			      	$result = mysqli_query($conn,$sql);
@@ -47,13 +47,11 @@
 
 			      				echo 
 			      				"<div class='list-group'>
-				      				<button class='list-group-item' onclick='showCategories($id) id=$id'>
-				      				
-				      					<a href='catalog2.php?id=$id'>
-				      						$name
-				      					</a>
-
-				      				</button>
+											<a href='catalog2.php?id=$id'>
+												<button class='list-group-item btn-block' onclick='showCategories($id) id=$id'>
+													$name
+												</button>
+											</a>
 			      				</div>";
 
 			      		}
@@ -64,16 +62,16 @@
 		     ?>
 
 		     <!-- PRICE INPUT -->
-		     	<div class='mt-5'>
-		     		<h4 class='mb-2'>PRICE</h4>
-		     		<!-- <input type='number' class='form-control'> -->
-		     	</div>
+				<div class='mt-5'>
+					<h4 class='mb-2'>PRICE</h4>
+					<!-- <input type='number' class='form-control'> -->
+				</div>
 			
 				<div class="input-group mb-3">
 				  <div class="input-group-prepend">
 				    <label class="input-group-text" for="inputGroupSelect01">&#8369;</label>
 				  </div>
-				  <select class="custom-select" id="priceRange">
+				  <select class="custom-select" id="priceOrder" onchange="priceOrder">
 				    <option selected>......</option>
 				 
 				    <option value="lowestToHighest"> Lowest to Highest </option>
@@ -115,10 +113,16 @@
    
 			        <?php 
 
-			   		  $id = $_GET['id'];
-			          //make sql statement to select all columns in tbl_items
-			          $sql = "SELECT * FROM tbl_items";
-
+			   		  $id = @$_GET['id'];
+								//make sql statement to select all columns in tbl_items
+								
+								if($id) {
+									$sql = "SELECT * FROM tbl_items WHERE category_id = " . $id;	
+								} else {
+									$sql = "SELECT * FROM tbl_items";
+								}
+			          
+ 
 			          //get data and assign to result variable
 			          $result = mysqli_query($conn,$sql);
 
@@ -131,33 +135,23 @@
 			              //test. if it works, proceed to assign other columns to  variables
 			              // echo $name . "<br>";
 			              $price = $row['price'];
-			              $description = $row['description'];
-			              $img_path = $row['img_path'];
+			              $item_img = $row['img_path'];
 
-			              echo "
-			              <div class='col-lg-3 col-md-3 mb-5 mx-1 text-center'>
-			                <div class = 'card h-700'>
-			                  <img src='$img_path'>
-			                  <div class='card-body'>
-			                    <h4 class='card-title font-weight-bold'>
-			                    	<a href='product.php?id=$id'>
-			                    		$name
-			                    	</a>
-			                    </h4>
-			                    <h5>&#8369; $price</h5>
-			                    
-			                  </div>
-			                  <div class='card-footer'>
-
-			                  
-
-			                  <button class='btn btn-primary btn-block font-weight-bold'>
-			                    <i class='fas fa-search'></i>
-			                    View Product
-			                  </button>
-			                  </div>
-			                </div>
-			              </div>";
+										echo "
+											<div class='col-lg-4 col-md-6 mb-5'>
+												<a href='product.php?id=$id'>
+													<div class = 'card h-700'>
+														<img src='$item_img'>
+														<div class='card-body'>
+															<div class='font-weight-bold'>
+																	$name
+																
+															</div>
+															<div>&#8369; $row[price]</div>
+														</div>
+													</div>
+												</a>
+											</div>";
 			            }
 			          }
 
@@ -179,6 +173,7 @@
 	<!-- /.container -->
 
 	
+	<?php include_once "../partials/footer.php";?>
 
-
-<?php include "../partials/footer.php";?>
+	<!-- MODAL -->
+<?php include_once "../partials/modal_container.php";?>

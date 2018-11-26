@@ -63,4 +63,7 @@
     <!-- /.container -->
 
    <!-- Footer -->
-    
+   <?php include_once "../partials/footer.php";?>
+
+   <!-- MODAL -->
+<?php include_once "../partials/modal_container.php";?>

@@ -11,32 +11,27 @@
 
 		while($row = mysqli_fetch_assoc($result)){
 			$name = $row['name'];
-		
+			$id = $row['id'];
 			$price = $row['price'];
-	      	$description = $row['description'];
+	  
 	      	$item_img = $row['img_path'];
 
-	      			$data .= "
-		      			<div class='col-lg-4 col-md-6 mb-5'>
-		      				<div class = 'card h-700'>
-		      					<img src='$row[img_path]'>
-		      					<div class='card-body'>
-		      						<h4 class='card-title font-weight-bold'>$name</h4>
-		      						<h5 class='font-weight-bold'>&#8369; $row[price]</h5>
-		      						<p>$description</p>
-		      					</div>
-		      					<div class='card-footer'>
-
-		      					<input type='number' class='form-control mb-3'>
-
-	      						<button class='btn btn-primary btn-block font-weight-bold'>
-	      							<i class='fas fa-cart-plus'></i>
-	      							Add to Cart
-	      						</button>
-		      					</div>
-		      				</div>
-		      			</div>";
-		}
+				$data .= "
+				<div class='col-lg-4 col-md-6 mb-5'>
+					<a href='product.php?id=$id'>
+						<div class = 'card h-700'>
+							<img src='$item_img'>
+							<div class='card-body'>
+								<div class='font-weight-bold'>
+										$name
+									
+								</div>
+								<div>&#8369; $row[price]</div>
+							</div>
+						</div>
+					</a>
+				</div>";
+}
 	} else {
 		$data = "No records found!";
 	}

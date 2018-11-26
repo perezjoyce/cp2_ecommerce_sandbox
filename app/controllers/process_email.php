@@ -2,8 +2,10 @@
 
 	include_once "connect.php";
 
+
 	if (isset($_POST['email'])) {
-	$email = $_POST['email'];
+
+		$email = $_POST['email'];
 	
 	// ADD $user = filter_var($_POST['user'], FILTER_SANITIZE_STRING);
 	// $isValid = filter_var($user, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[a-zA-Z0-9]+$/")));
@@ -12,7 +14,7 @@
 	//     // do something
 	// }
 
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		 	echo "invalidEmail";
 		} else {
 
@@ -27,15 +29,5 @@
 		}
 	} else {
 		echo "process_email.php did not receive variable";
-		var_dump($email); die(); //NULL
+		//var_dump($email); die(); //NULL
 	}
-	
-
-
-?>
-
-
-<!-- if($result) {
-		header("Location: index.php");
-	}
- -->

@@ -1,18 +1,6 @@
-<?php include "../partials/header.php";?>
-<?php require_once "../controllers/connect.php";?>
-    
-    <!-- Page Content -->
-    <div class="container">
-     <div class="row">
-        <div class="col-lg-4 col-md-3"></div>
-        <div class="col-lg-4 col-md-3"></div>
-        <div class="col">
-          <div class="card mt-5">
-            <div class="card-body">
-                  
-              <form action="../controllers/process_email.php" method="POST" id="form_register">
+<form action="../controllers/process_register.php" method="POST" id="form_register">
 
-                <div class="text-center my-5">Registration Form</div>
+                <div class="text-center my-5">Edit Profile</div>
 
                 <div class="form-group">
                   <label>First Name</label>
@@ -53,23 +41,8 @@
                 <p id="error_message"></p>
 
                 <div class="d-flex flex-lg-row flex-md-row flex-sm-column my-5">
-                  <button type="button" class="btn btn-outline-success mr-1 flex-fill" id="btn_register">REGISTER</button>
+                  <button type="button" class="btn btn-outline-success mr-1 flex-fill" id="btn_register">SAVE</button>
                   <input type="reset" class="btn btn-outline-warning flex-fill" id="btn_clear" value="CLEAR">
                 </div>
                 
               </form>
-            </div>
-
-         
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <?php include "../partials/footer.php";?>
