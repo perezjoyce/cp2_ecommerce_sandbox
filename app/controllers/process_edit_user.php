@@ -1,8 +1,9 @@
 <?php
-
+	session_start(); 
 	require_once "connect.php";
-    
-	//CHECK IF DATA WAS FETCHED
+
+	// var_dump($_POST['password']); die(); //gets correct value from edit_user_modal
+  
 	if (isset($_POST['password'])) {
 
         $id = $_POST['id'];

@@ -8,6 +8,7 @@
     $sql = "SELECT * FROM tbl_users WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_assoc($result)){ 
+      $id = $row['id'];
       $fname = $row['first_name'];
       $lname = $row['last_name'];
       $email = $row['email'];
@@ -16,9 +17,10 @@
 
   ?>
 
-  <form action="../controllers/process_edit_email.php" method="POST" id="form_edit_user">
+  <form action="../controllers/process_edit_user.php" method="POST" id="form_edit_user">
     <!-- GET ID TO BE PASSED ON TO PROCESS_EDIT_USER -->
-    <input type="hidden" name="id" id="id" value="<?= $_GET['id'] ?>">
+    <input type="hidden" name="id" id="id" value="<?= $id ?>">
+
 
     <div class="text-center my-5">Edit Profile</div>
 
@@ -55,7 +57,7 @@
     <p id="edit_user_error"></p>
 
     <div class="d-flex flex-lg-row flex-md-row flex-sm-column my-5">
-      <button type="button" class="btn btn-outline-success mr-1 flex-fill" id="btn_edit_user">SAVE CHANGES</button>
+      <button type="submit" class="btn btn-outline-success mr-1 flex-fill" id="btn_edit_user" value="submit">SAVE CHANGES</button>
     </div>
 
     <?php } ?>

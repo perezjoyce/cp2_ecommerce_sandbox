@@ -4,6 +4,8 @@
 <?php require_once "../controllers/functions.php";?>
 
 <?php 
+
+
     $id = $_GET['id'];
     if(empty($id)) {
         header("location: index.php");
@@ -26,7 +28,8 @@
         } else {
             $profile_pic = BASE_URL . $profile_pic . "_80x80.jpg";
         } 
-    }          
+    }  
+       
 ?>
     <!-- PAGE CONTENT -->
     <div class="container mt-5">

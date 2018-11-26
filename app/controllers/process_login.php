@@ -1,6 +1,7 @@
 <?php
 
-include_once "connect.php";
+session_start(); 
+require_once "connect.php";
 
 if (isset($_POST['username'])) {
 	$username = $_POST['username'];
@@ -11,12 +12,17 @@ if (isset($_POST['username'])) {
 	$count = mysqli_num_rows($result);
 	$row = mysqli_fetch_assoc($result);
 	$id = $row['id'];
+	$username = $row['username'];
 
 	$response =[];
 	if($count == 1) {
+		// SESSION
+		$_SESSION['id'] = $id; 
+
 		$response = ['status' => 'loggedIn', 'id' => $id];
+
 	} else {
-		$response = ['status' => 'loginFailed', 'message' => 'Login Failed.'];
+		$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];
 	}
 
 } else {

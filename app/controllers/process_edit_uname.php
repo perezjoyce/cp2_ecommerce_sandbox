@@ -1,6 +1,8 @@
 <?php
+    session_start();
+	require_once "connect.php";
 
-	include_once "connect.php";
+    var_dump($_POST['username']); die(); //gets correct value from edit_user_modal
 
 	if (isset($_POST['username'])) {
         $user_id = $_POST['id'];

@@ -215,10 +215,10 @@ $(document).ready( () => {
 						location.href="profile.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
 						$("#error_message").css("color", "red");
-						$("#error_message").html(data.message); 
+						$("#error_message").html(response.message); 
 					} else {
 						$("#error_message").css("color", "red");
-						$("#error_message").html(data.message); 
+						$("#error_message").html(response.message); 
 					}
 				}
 
@@ -252,7 +252,6 @@ $(document).ready( () => {
 	$("#btn_edit_user").click(()=>{
 		
 		//get values
-		let id = $("#id").val();
 		let fname = $("#fname").val();
 		let lname = $("#lname").val();
 		let email = $("#email").val();
@@ -319,8 +318,7 @@ $(document).ready( () => {
 			$.ajax({
 				"url": "../controllers/process_edit_email.php",
 				"data": { 
-							"email" : email,
-							"id" : id 
+							"email" : email
 						},
 				"type": "POST",
 				"success": (dataFromPHP) => {
@@ -340,8 +338,7 @@ $(document).ready( () => {
 						$.ajax({
 						"url": "../controllers/process_edit_uname.php",
 						"data": {
-								"username" : username,
-								"id" : id
+								"username" : username
 								},
 						"type": "POST",
 						"success": (dataFromPHP) => {

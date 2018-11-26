@@ -50,7 +50,7 @@
       <!-- /.PRODUCTS -->
 
       <!-- LOAD MORE PRODUCTS -->
-      <a href="catalog2.php" class="btn btn-outline-primary btn-block py-2 mt-5">VIEW MORE PRODUCTS</a>
+      <a href="catalog2.php" class="btn btn-outline-secondary btn-block py-2 mt-5">VIEW MORE PRODUCTS</a>
      
     </div>
     <!-- /.PAGE CONTENT -->

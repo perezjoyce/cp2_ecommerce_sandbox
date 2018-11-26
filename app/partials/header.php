@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,26 +37,58 @@
 
           <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item mr-3">
-              <a class="nav-link text-light" href="catalog2.php">Catalog
+            <li class="nav-item mr-5">
+              <a class="nav-link text-light" href="catalog2.php">
+                <i class="fas fa-book"></i>
+                Catalog
               </a>
             </li>
-            <li class="nav-item mr-3">
+            <li class="nav-item mr-5">
               <a class="nav-link text-light" href="#">
                 <i class="fas fa-cart-plus"></i>
                 Cart
               </a>
             </li>
            
-            <li class="nav-item mr-3">
-              <a class="nav-link modal-link text-light" href="#" data-url="../partials/templates/login_modal.php" role="button">
-                Login
-              </a>
-            </li>
+           <?php if(isset($_SESSION['id'])) { 
+              $id = $_SESSION['id'];
 
-            <li class="nav-item">
-              <a class="nav-link text-light" href="register.php">Register</a>
-            </li>
+              echo "
+              <li class='nav-item mr-5'>
+                <a class='nav-link modal-link text-light' href='../controllers/process_logout.php' role='button'>
+                  <i class='fas fa-sign-in-alt'></i>
+                  Logout
+                </a>
+              </li>
+
+              <li class='nav-item'>
+                <a class='nav-link text-light' href='profile.php?id=$id'>
+                  <i class='fas fa-user'></i>
+                  My Account
+                </a>
+              </li>
+              ";
+
+           } else { 
+
+              echo "
+              <li class='nav-item mr-5'>
+                <a class='nav-link modal-link text-light' href='#'' data-url='../partials/templates/login_modal.php' role='button'>
+                  <i class='fas fa-sign-in-alt'></i>
+                  Login
+                </a>
+              </li>
+
+              <li class='nav-item'>
+                <a class='nav-link text-light' href='register.php'>
+                  <i class='fas fa-user'></i>
+                  Register
+                </a>
+              </li>
+              ";
+
+            } ?>
+
 
           </ul>
         </div>
