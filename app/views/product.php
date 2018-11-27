@@ -14,6 +14,13 @@
   $price = $row['price'];
   $description = $row['description'];
   $item_img = $row['img_path'];
+
+
+  $sql = " SELECT * FROM tbl_carts WHERE cart_session='$cartSession' AND item_id=$id";
+	$result = mysqli_query($conn, $sql);
+  $count = mysqli_num_rows($result);
+
+  
   
 ?>
     <!-- PAGE CONTENT -->
@@ -33,11 +40,19 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
-                <a class='modal-link btn btn-outline-primary mt-3 flex-fill mr-2' href='#' data-id='<?= $id ?>' data-url='../partials/templates/cart_modal.php' role='button' id="btn_add_to_cart">
-                <input type="hidden" id="item_id" value='<?= $id ?>'>
-                  <i class='fas fa-cart-plus'></i>
-                  Add to Cart
-                </a>
+                <?php
+                  if($count) {
+                ?>
+                    <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' disabled>
+                      <i class='fas fa-cart-plus'></i>
+                      Item already in your shopping cart
+                  </button>
+                <?php } else {?>
+                    <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+                      <i class='fas fa-cart-plus'></i>
+                      Add to Cart
+                    </a>
+                <?php }?>
 
                 <button class='btn btn-outline-danger mt-3 flex-fill'>
                   <i class="far fa-heart"></i>

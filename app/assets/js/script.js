@@ -544,42 +544,41 @@ $(document).ready( () => {
 
 
 	// activities
-
 	$("#btn_add_to_cart").on("click",function(){
 		let productId = $(this).attr("data-id");
-
-		// PRODUCT QUANTITY
-		$(document).on("change", ".itemQuantity", function(){
-			let price = $(".unitPrice").html();
-			let quantity = $(".itemQuantity").val();
-			let total = price * quantity; 
-			total = round(total,2);
-			$(".totalPrice").html(total);
-
-			// console.log(productId);
-			// console.log(quantity);
 
 		$.ajax({
 			url: "../controllers/process_add_to_cart.php",
 			method: "POST",
 			data: {
-				productId: productId,
-				quantity : quantity
+				productId: productId
 			},
 			dataType: "text",
-			success: function(data){
+			success: function(data) {
 				// $.parseJSON(data);
-				$("#item-count").html(data);
+				//$("#item-count").html("<span class='badge badge-primary text-light'>" + data + "</span>");
 				// $("#unitImage").html(response.image);
 				// $("#unitPrice").html(response.price);
-				
+				$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i>Item already in your shopping cart</button>");
 			}
-		})
-
-		})
-		
+		});
 
 	});
+
+	// PRODUCT QUANTITY
+	$(document).on("change", ".itemQuantity", function(){		
+		let quantity = $(".itemQuantity").val();		
+		let productId = $(this).data('productid');
+		$.post('../controllers/add_product_quantity.php', {
+			quantity: quantity,
+			productId: productId
+		}, function(response){
+			// reload the modal with the new quantity reflected
+			$.get("../partials/templates/cart_modal.php", function(response) {
+				$('.modal .modal-content').html(response);
+			});
+		});
+	})
 	
 
 });

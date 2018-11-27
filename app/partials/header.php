@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php 
+  session_start(); 
+
+  require_once "../controllers/connect.php";
+
+  if(!isset($_SESSION['cart_session'])) {
+    $_SESSION['cart_session'] = uniqid();
+    
+  }
+
+  $cartSession = $_SESSION['cart_session'];
+  $sql = " SELECT * FROM tbl_carts WHERE cart_session='$cartSession'";
+	$result = mysqli_query($conn, $sql);
+  $productCount = mysqli_num_rows($result);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +62,7 @@
               <a class='nav-link modal-link text-light' href='#' data-id='<?= $_GET['id'] ?>' data-url='../partials/templates/cart_modal.php' role='button'>
                 <i class="fas fa-cart-plus"></i>
                 Cart
-                <span id="item-count"></span>
+                <span id="item-count"><span class="badge badge-primary text-light"><?= $productCount ?></span></span>
               </a>
             </li>
            

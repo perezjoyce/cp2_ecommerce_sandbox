@@ -3,19 +3,14 @@
     session_start(); 
     require_once "../../controllers/connect.php";
 
-    @$id = $_SESSION['id'];
+    $cartSession = $_SESSION['cart_session'];
     
-    $sql = "SELECT * FROM tbl_items WHERE id = $id";
+    $sql = "SELECT c.*, p.img_path, p.name, p.price, p.id as productId
+    FROM tbl_carts c 
+    JOIN tbl_items p on p.id=c.item_id 
+    WHERE cart_session='" . $cartSession. "'";
     $result = mysqli_query($conn, $sql);
-    while(@$row = mysqli_fetch_assoc($result)){ 
-      $name = $row['name'];
-      $price = $row['price'];
-      $description = $row['description'];
-      $image = $row['img_path'];
-    }
-    
-  ?>
-
+?>
 
 <form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
     
@@ -30,18 +25,39 @@
             <th> Action </th>
 
         </tr>
-
-        <tr>
-            <td> 
-                <?= $name ?>
-                <br>
-                <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
-            </td>
-            <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
-            <td> <input class='itemQuantity' type="number" style='width:50px;' value="1" min="1" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"</td>
-            <td>&#8369; <span class="totalPrice"> <?= $price ?> </span> </td>
-            <td> Delete </td>
-        </tr>
+        <?php
+        $count = mysqli_num_rows($result);
+        $totalPrice = 0;
+        if($count) :
+            while($row = mysqli_fetch_assoc($result)){ 
+                $name = $row['name'];
+                $price = $row['price'];
+                $quantity = $row['quantity'];
+                $image = $row['img_path'];
+                $totalPrice = $totalPrice + ($price * $quantity);
+        ?>
+            <tr>
+                <td> 
+                    <?= $name ?>
+                    <br>
+                    <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
+                </td>
+                <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
+                <td> <input class='itemQuantity' 
+                            type="number" 
+                            style='width:50px;' 
+                            value="<?= $quantity ?>" 
+                            data-productid="<?= $row['productId'] ?>"
+                            min="1" 
+                            max="99" 
+                            onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
+                <td>&#8369; <span class="totalPrice"> <?= $price * $quantity ?> </span> </td>
+                <td> Delete </td>
+            </tr>
+        <?php 
+            }
+        endif;
+        ?>
 
     </table>
 
@@ -49,7 +65,7 @@
 
         <tr>
             <th>Total</th>
-            <td colspan="4"> &#8369;<span class="subtotalAmount"></span> </td>
+            <td colspan="4"> &#8369;<span class="subtotalAmount"><?= $totalPrice ?></span> </td>
         </tr>
 
     </table>
