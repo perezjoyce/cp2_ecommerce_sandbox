@@ -27,6 +27,8 @@ $(document).ready( () => {
   	});
 
 	
+	
+	
 	//ARRANGING ITEMS ACCORDING TO PRICE
   	$(document).on("change", "#priceOrder", function(){
   		let value = $(this).val();
@@ -39,31 +41,62 @@ $(document).ready( () => {
 
 	
 	
-	// PUTTING ITEMS ON SHOPPING CART -- not yet working
+	//PUTTING ITEMS ON SHOPPING CART -- not yet working
 	$(document).on("click", "#btn_add_to_cart", function(e){
 		e.preventDefault();
-		let value = $(' #btn_add_to_cart ').val();
-		console.log(value);
-
-		// //AJAX
-		// $.post("../controllers/search_price.php", {value:value},function(data){
-		// 	$("#products").html(data);
-		// })
-  });
-
-  //ADDING QUANTITY
-  $(document).on("change", "#priceQuantity", function(){
-	let value = $("#priceQuantity").val();
-	
-
-	//AJAX
-	// $.post("../controllers/search_price.php", {value:value},function(data){
-	// 	$("#products").html(data);
-	// })
-});
-
+		addToCart();
+	});
 	  
-	
+	function addToCart() {
+		let item_id = $(' #item_id ').val();
+		let item_quantity = $(".itemQuantity").val();
+		//AJAX
+		$.post("../controllers/process_add_to_cart.php", {item_id:item_id, item_quantity: item_quantity },function(data){
+			let data = $.parseJSON(dataFromPHP);
+			location.href="profile.php?id=" + data.id;
+		})
+	}
+
+
+	// ROUNDING OFF
+	function round(value, exp) {
+		if (typeof exp === 'undefined' || +exp === 0)
+		  return Math.round(value);
+	  
+		value = +value;
+		exp = +exp;
+	  
+		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+		  return NaN;
+	  
+		// Shift
+		value = value.toString().split('e');
+		value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+	  
+		// Shift back
+		value = value.toString().split('e');
+		return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+	}
+
+
+	// PRODUCT QUANTITY
+	$(document).on("change", ".itemQuantity", function(){
+			let price = $(".unitPrice").html();
+			let quantity = $(".itemQuantity").val();
+			let total = price * quantity; 
+			total = round(total,2);
+			$(".totalPrice").html(total);
+
+	})
+
+	// SUBTOTAL
+	// 	$(document).on("change", ".totalPrice", function(){
+	// 		let totalPrice = $(".totalPrice").html();
+	// 		totalPrice += totalPrice;
+	// 		$(".subtotalAmount").html(totalPrice += totalPrice);
+
+	// })
+
   	
     // REGISTRATION
 	$("#btn_register").click(()=>{
@@ -251,25 +284,6 @@ $(document).ready( () => {
 
 	});
 
-
-
-	// UPLOAD IMAGE BUTTON
-	// $("#btn_upload").click(()=>{
-	// 	let upload = 
-	// 	let id = $("#id").val();
-
-	// 	$.ajax({
-	// 		"url": "../../controllers/process_upload.php",
-	// 		"data": { "id" : id },
-	// 		"type": "POST",
-	// 		"success": (dataFromPHP) => {
-	// 			$('#upload_error').html('');
-	// 			$("#upload_error").html(dataFromPHP);
-			
-	// 		}
-	// 	});
-		
-	// });
 
 	$(document).on('submit', '#form_edit_user', function(e){
 		e.preventDefault();

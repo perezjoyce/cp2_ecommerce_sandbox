@@ -1,8 +1,9 @@
 <?php 
-    // TO DISPLAY CURRENT USER DATA
+
+    session_start(); 
     require_once "../../controllers/connect.php";
 
-    $id = $_GET['id'];
+    $id = $_SESSION['id'];
     
     $sql = "SELECT * FROM tbl_items WHERE id = $id";
     $result = mysqli_query($conn, $sql);
@@ -16,7 +17,7 @@
   ?>
 
 
-<form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
+<form action="../controllers/process_add_to_cart.php" method="GET" id="form_cart">
     
     <label class="my-5">Your Shopping Cart</label>
 
@@ -36,26 +37,24 @@
                 <br>
                 <img src="<?= $image ?>" style='width:50px;height:50px;'> 
             </td>
-            <td> <?= $price ?> </td>
-            <td> <input type="number" style='width:50px;' id='priceQuantity' value='1'></td>
-            <td> <?= $price ?> </td>
+            <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
+            <td> <input class='itemQuantity' type="number" style='width:50px;' value="1" min="1" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
+            <td>&#8369; <span class="totalPrice"> <?= $price ?> </span> </td>
             <td> Delete </td>
         </tr>
 
     </table>
 
-    <div class="form-group">
-        <label>Username</label>
-        <!-- change name to id -->
-        <input type="text" class="form-control" id="username" name="username" autocomplete="username">
-        <p class="validation text-danger"></p>
-    </div>
+    <table class="table table-bordered mb-5">
 
-    <div class="form-group mb-5">
-        <label>Passworssdsdd</label>
-        <input type="password" class="form-control" id="password" name="password" autocomplete="password">
-        <p class="validation text-danger"></p>
-    </div>
+        <tr>
+            <th>Total</th>
+            <td colspan="4"> &#8369;<span class="subtotalAmount"></span> </td>
+        </tr>
+
+    </table>
+    
+
 
     <p id="error_message"></p>
 

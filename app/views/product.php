@@ -33,7 +33,8 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
-                <a class='modal-link btn btn-outline-primary mt-3 flex-fill mr-2' href='#' value='<?= $id ?>' data-id='<?= $id ?>' data-url='../partials/templates/cart_modal.php' role='button' id="btn_add_to_cart">
+                <a class='modal-link btn btn-outline-primary mt-3 flex-fill mr-2' href='#' data-id='<?= $id ?>' data-url='../partials/templates/cart_modal.php' role='button' id="btn_add_to_cart">
+                <input type="hidden" id="item_id" value='<?= $id ?>'>
                   <i class='fas fa-cart-plus'></i>
                   Add to Cart
                 </a>
