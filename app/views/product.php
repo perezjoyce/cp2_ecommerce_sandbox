@@ -1,7 +1,7 @@
 <?php include "../partials/header.php";?>
 <?php require_once "../controllers/connect.php";?>
 
- <?php 
+<?php 
            
   $id = $_GET['id'];
   $sql = "SELECT * FROM tbl_items WHERE id = $id";

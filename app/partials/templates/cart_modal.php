@@ -3,11 +3,11 @@
     session_start(); 
     require_once "../../controllers/connect.php";
 
-    $id = $_SESSION['id'];
+    @$id = $_SESSION['id'];
     
     $sql = "SELECT * FROM tbl_items WHERE id = $id";
     $result = mysqli_query($conn, $sql);
-    while($row = mysqli_fetch_assoc($result)){ 
+    while(@$row = mysqli_fetch_assoc($result)){ 
       $name = $row['name'];
       $price = $row['price'];
       $description = $row['description'];
@@ -17,12 +17,12 @@
   ?>
 
 
-<form action="../controllers/process_add_to_cart.php" method="GET" id="form_cart">
+<form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
     
     <label class="my-5">Your Shopping Cart</label>
 
     <table class="table table-bordered">
-        <tr>
+        <tr id="table-header">
             <th> Item </th>
             <th> Unit Price </th>
             <th> Quantity </th>
@@ -35,10 +35,10 @@
             <td> 
                 <?= $name ?>
                 <br>
-                <img src="<?= $image ?>" style='width:50px;height:50px;'> 
+                <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
             </td>
             <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
-            <td> <input class='itemQuantity' type="number" style='width:50px;' value="1" min="1" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
+            <td> <input class='itemQuantity' type="number" style='width:50px;' value="1" min="1" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"</td>
             <td>&#8369; <span class="totalPrice"> <?= $price ?> </span> </td>
             <td> Delete </td>
         </tr>

@@ -27,8 +27,6 @@ $(document).ready( () => {
   	});
 
 	
-	
-	
 	//ARRANGING ITEMS ACCORDING TO PRICE
   	$(document).on("change", "#priceOrder", function(){
   		let value = $(this).val();
@@ -42,20 +40,28 @@ $(document).ready( () => {
 	
 	
 	//PUTTING ITEMS ON SHOPPING CART -- not yet working
-	$(document).on("click", "#btn_add_to_cart", function(e){
-		e.preventDefault();
-		addToCart();
-	});
+	// $(document).on("click", "#btn_add_to_cart", function(e){
+	// 	e.preventDefault();
+	// 	addToCart();
+	// });
 	  
-	function addToCart() {
-		let item_id = $(' #item_id ').val();
-		let item_quantity = $(".itemQuantity").val();
-		//AJAX
-		$.post("../controllers/process_add_to_cart.php", {item_id:item_id, item_quantity: item_quantity },function(data){
-			let data = $.parseJSON(dataFromPHP);
-			location.href="profile.php?id=" + data.id;
-		})
-	}
+
+	// function addToCart() {
+	// 	let id = $("#btn_add_to_cart").attr("data-id");
+	// 	let item_quantity = $(".itemQuantity").val();
+
+	// 	console.log(id);
+	// 	console.log(item_quantity);
+
+	// 	//AJAX
+	// 	$.post("../controllers/process_add_to_cart.php", {id:id, item_quantity: item_quantity },function(data){
+	// 		// let data = $.parseJSON(dataFromPHP);
+	// 		// location.href="profile.php?id=" + data.id;
+	// 		$("#table-header").append(data);
+	// 	})
+	// }
+
+
 
 
 	// ROUNDING OFF
@@ -79,15 +85,7 @@ $(document).ready( () => {
 	}
 
 
-	// PRODUCT QUANTITY
-	$(document).on("change", ".itemQuantity", function(){
-			let price = $(".unitPrice").html();
-			let quantity = $(".itemQuantity").val();
-			let total = price * quantity; 
-			total = round(total,2);
-			$(".totalPrice").html(total);
 
-	})
 
 	// SUBTOTAL
 	// 	$(document).on("change", ".totalPrice", function(){
@@ -543,5 +541,45 @@ $(document).ready( () => {
 
 
 });
+
+
+	// activities
+
+	$("#btn_add_to_cart").on("click",function(){
+		let productId = $(this).attr("data-id");
+
+		// PRODUCT QUANTITY
+		$(document).on("change", ".itemQuantity", function(){
+			let price = $(".unitPrice").html();
+			let quantity = $(".itemQuantity").val();
+			let total = price * quantity; 
+			total = round(total,2);
+			$(".totalPrice").html(total);
+
+			// console.log(productId);
+			// console.log(quantity);
+
+		$.ajax({
+			url: "../controllers/process_add_to_cart.php",
+			method: "POST",
+			data: {
+				productId: productId,
+				quantity : quantity
+			},
+			dataType: "text",
+			success: function(data){
+				// $.parseJSON(data);
+				$("#item-count").html(data);
+				// $("#unitImage").html(response.image);
+				// $("#unitPrice").html(response.price);
+				
+			}
+		})
+
+		})
+		
+
+	});
+	
 
 });
