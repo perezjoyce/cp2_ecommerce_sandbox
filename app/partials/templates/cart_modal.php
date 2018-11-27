@@ -12,12 +12,6 @@
       $description = $row['description'];
       $image = $row['img_path'];
     }
-
-      echo "$name";
-      echo "<br>";
-      echo "$price";
-      echo "<br>";
-      echo "<img src='$image'  style='width:100px;height:100px;'>";
     
   ?>
 
@@ -25,6 +19,30 @@
 <form action="../controllers/process_add_to_cart.php" method="POST" id="form_cart">
     
     <label class="my-5">Your Shopping Cart</label>
+
+    <table class="table table-bordered">
+        <tr>
+            <th> Item </th>
+            <th> Unit Price </th>
+            <th> Quantity </th>
+            <th> Total Price </th>
+            <th> Action </th>
+
+        </tr>
+
+        <tr>
+            <td> 
+                <?= $name ?>
+                <br>
+                <img src="<?= $image ?>" style='width:50px;height:50px;'> 
+            </td>
+            <td> <?= $price ?> </td>
+            <td> <input type="number" style='width:50px;' id='priceQuantity' value='1'></td>
+            <td> <?= $price ?> </td>
+            <td> Delete </td>
+        </tr>
+
+    </table>
 
     <div class="form-group">
         <label>Username</label>

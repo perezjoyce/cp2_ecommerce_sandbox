@@ -39,7 +39,7 @@ $(document).ready( () => {
 
 	
 	
-	// PUTTING ITEMS ON SHOPPING CART
+	// PUTTING ITEMS ON SHOPPING CART -- not yet working
 	$(document).on("click", "#btn_add_to_cart", function(e){
 		e.preventDefault();
 		let value = $(' #btn_add_to_cart ').val();
@@ -50,6 +50,17 @@ $(document).ready( () => {
 		// 	$("#products").html(data);
 		// })
   });
+
+  //ADDING QUANTITY
+  $(document).on("change", "#priceQuantity", function(){
+	let value = $("#priceQuantity").val();
+	
+
+	//AJAX
+	// $.post("../controllers/search_price.php", {value:value},function(data){
+	// 	$("#products").html(data);
+	// })
+});
 
 	  
 	
