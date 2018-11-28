@@ -565,7 +565,7 @@ $(document).ready( () => {
 
 	});
 
-	// GETTING PRODUCT QUANTITY
+	// ADDING PRODUCT QUANTITY
 	$(document).on("change", ".itemQuantity", function(){		
 		let quantity = $(".itemQuantity").val();		
 		let productId = $(this).data('productid');
@@ -579,6 +579,26 @@ $(document).ready( () => {
 			});
 		});
 	})
+
+
+	// GETTING PRODUCT QUANTITY -- probably working OR the prob is in cart_modal code
+	$(document).on("change", ".itemQuantity", function(){		
+		let unitPrice = $(".unitPrice").html();	
+		let quantity = $(".itemQuantity").val();
+		let totalPrice = unitPrice * quantity;
+		$(".totalPrice").html(totalPrice);		
+		// let productId = $(this).data('productid');
+		// $.post('../controllers/add_product_quantity.php', {
+		// 	quantity: quantity,
+		// 	productId: productId
+		// }, function(response){
+		// 	// reload the modal with the new quantity reflected
+		// 	$.post("../partials/templates/cart_modal.php", function(response) {
+		// 		$('.modal .modal-body').html(response);
+		// 	});
+		// });
+	})
+
 
 	
 	

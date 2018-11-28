@@ -37,6 +37,7 @@
                 $totalPrice = $totalPrice + ($price * $quantity);
         ?>
             <tr>
+       
                 <td> 
                     <?= $name ?>
                     <br>
@@ -46,7 +47,7 @@
                 <td> <input class='itemQuantity' 
                             type="number" 
                             style='width:50px;' 
-                            value="<?= $quantity ?>" 
+                            value="<?= $quantity ?>"
                             data-productid="<?= $row['productId'] ?>"
                             min="1" 
                             max="99" 
