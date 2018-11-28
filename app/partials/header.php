@@ -62,7 +62,16 @@
               <a class='nav-link modal-link text-light' href='#' data-id='<?= $_GET['id'] ?>' data-url='../partials/templates/cart_modal.php' role='button'>
                 <i class="fas fa-cart-plus"></i>
                 Cart
-                <span id="item-count"><span class="badge badge-primary text-light"><?= $productCount ?></span></span>
+                <span id="item-count"><span class="badge badge-primary text-light">
+
+                <?php 
+                  if ($productCount) {
+                    echo ($productCount);
+                  } 
+
+                  ?>
+
+                </span></span>
               </a>
             </li>
            

@@ -525,7 +525,7 @@ $(document).ready( () => {
 		} 
 
 
-});
+	});
 
 
 	// ADDING ITEMS TO CART
@@ -541,6 +541,9 @@ $(document).ready( () => {
 			dataType: "text",
 			success: function(data) {
 				$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
+				let sum = "";
+				sum += data;
+				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
 			}
 		});
 

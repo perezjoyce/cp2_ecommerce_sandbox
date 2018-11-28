@@ -21,7 +21,6 @@
   $count = mysqli_num_rows($result);
 
   
-  
 ?>
     <!-- PAGE CONTENT -->
     <div class="container-fluid">

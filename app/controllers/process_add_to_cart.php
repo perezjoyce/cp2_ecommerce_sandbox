@@ -27,6 +27,7 @@ if (isset($_POST['productId'])) {
 	$result = mysqli_query($conn, $sql);
     $count = mysqli_num_rows($result);
 
+    // var_dump($count); die();
     echo $count;
 
     
