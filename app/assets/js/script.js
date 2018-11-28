@@ -14,19 +14,22 @@ $(document).ready( () => {
 		})
 	}
 
-	// SHOWING SELECTED BUTTON IN PROFILE
-	function showWishList(userId) {
-		// alert(categoryId);
+	// DISPLAYING WISHLIST
+	// prob: can i manipulate the contents of this wishlist since it is just echoed?
+	$("#btn_view_wishList").on("click",function(){
+		let userId = $(this).attr("data-id");
+
 		$.ajax({
-			url: "../controllers/show_items.php",
+			url: "wishlist.php",
 			method: "POST",
-			data: {categoryId:categoryId},
+			data: {userId:userId},
 			success: (data) => {
-				$('#products').html('');
-				$('#products').html(data);
+				$('#main-wrapper').html('');
+				$('#main-wrapper').html(data);
 			}
 		})
-	}
+			
+	});
 
   	// SEARCH BAR
   	$("#search").keyup(function(){

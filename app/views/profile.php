@@ -41,16 +41,20 @@
                         <img src='<?= $profile_pic ?>'  class="user-photo circle" height="80">
                     </div>
                     <div class="col">
-                        <div class="font-weight-bold mt-4"> <?= $username ?> </div>
-                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
-                            <i class="far fa-edit"></i>
-                            Edit Profile
-                        </a>
+                        <div class="mt-4"> Hello, <span class="font-weight-bold"><?= $username ?></span>! </div>
                     </div>
                 </div>
                 <hr>
+
                 <div class="row">
-                    <a href="profile.php?id='<?= $id ?>'" class='list-group-item btn btn-outline btn-block mx-3' onclick="showWishList(<?= $id ?>)">
+                    <a class='list-group-item btn btn-outline btn-block mx-3 mb-1' role='button' href="profile.php?id=<?= $id ?>">
+                        <i class='far fa-user'></i>
+                         My Profile
+                    </a>
+                </div>
+
+                <div class="row">
+                    <a class='list-group-item btn btn-outline btn-block mx-3' role='button' data-id='<?= $id ?>' id="btn_view_wishList">
                         <i class="far fa-heart"></i>
                         Wish List
                     </a>
@@ -62,7 +66,10 @@
                 <div id="main-wrapper">
                     <div class="row pt-5 pl-5 flex-column">
                         <h4>My Profile</h4>
-                        <div>Manage and protect your account</div>
+                        <a class='nav-link modal-link px-0' href='#' data-id='<?= $id ?>' data-url='../partials/templates/edit_user_modal.php' role='button'>
+                            <i class="far fa-edit"></i>
+                            Edit Profile
+                        </a>
                     </div>
 
                     <hr class="mb-5">

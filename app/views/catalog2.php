@@ -45,7 +45,7 @@
 
 			      				echo 
 			      				"<div class='list-group'>
-											<a href='catalog2.php?id=$id' class='list-group-item btn-block' onclick='showCategories($id) id=$id'>
+											<a href='catalog2.php?id=$id'class='list-group-item btn-block' onclick='showCategories($id) id=$id'>
 													$name
 											</a>
 			      				</div>";
