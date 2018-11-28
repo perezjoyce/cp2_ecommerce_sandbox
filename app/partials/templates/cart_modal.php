@@ -52,7 +52,11 @@
                             max="99" 
                             onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
                 <td>&#8369; <span class="totalPrice"> <?= $price * $quantity ?> </span> </td>
-                <td> Delete </td>
+                <td> 
+                    <a data-productid='<?= $row['productId'] ?>' role='button' class="btn_delete_item">
+                        Delete
+                    </a>
+                </td>
             </tr>
         <?php 
             }

@@ -14,6 +14,20 @@ $(document).ready( () => {
 		})
 	}
 
+	// SHOWING SELECTED BUTTON IN PROFILE
+	function showWishList(userId) {
+		// alert(categoryId);
+		$.ajax({
+			url: "../controllers/show_items.php",
+			method: "POST",
+			data: {categoryId:categoryId},
+			success: (data) => {
+				$('#products').html('');
+				$('#products').html(data);
+			}
+		})
+	}
+
   	// SEARCH BAR
   	$("#search").keyup(function(){
   		let word = $(this).val();
@@ -39,29 +53,6 @@ $(document).ready( () => {
 
 	
 	
-	//PUTTING ITEMS ON SHOPPING CART -- not yet working
-	// $(document).on("click", "#btn_add_to_cart", function(e){
-	// 	e.preventDefault();
-	// 	addToCart();
-	// });
-	  
-
-	// function addToCart() {
-	// 	let id = $("#btn_add_to_cart").attr("data-id");
-	// 	let item_quantity = $(".itemQuantity").val();
-
-	// 	console.log(id);
-	// 	console.log(item_quantity);
-
-	// 	//AJAX
-	// 	$.post("../controllers/process_add_to_cart.php", {id:id, item_quantity: item_quantity },function(data){
-	// 		// let data = $.parseJSON(dataFromPHP);
-	// 		// location.href="profile.php?id=" + data.id;
-	// 		$("#table-header").append(data);
-	// 	})
-	// }
-
-
 
 
 	// ROUNDING OFF
@@ -85,15 +76,6 @@ $(document).ready( () => {
 	}
 
 
-
-
-	// SUBTOTAL
-	// 	$(document).on("change", ".totalPrice", function(){
-	// 		let totalPrice = $(".totalPrice").html();
-	// 		totalPrice += totalPrice;
-	// 		$(".subtotalAmount").html(totalPrice += totalPrice);
-
-	// })
 
   	
     // REGISTRATION
@@ -543,7 +525,7 @@ $(document).ready( () => {
 });
 
 
-	// activities
+	// ADDING ITEMS TO CART
 	$("#btn_add_to_cart").on("click",function(){
 		let productId = $(this).attr("data-id");
 
@@ -555,17 +537,29 @@ $(document).ready( () => {
 			},
 			dataType: "text",
 			success: function(data) {
-				// $.parseJSON(data);
-				//$("#item-count").html("<span class='badge badge-primary text-light'>" + data + "</span>");
-				// $("#unitImage").html(response.image);
-				// $("#unitPrice").html(response.price);
-				$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i>Item already in your shopping cart</button>");
+				$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
 			}
 		});
 
 	});
 
-	// PRODUCT QUANTITY
+
+	// DELETING ITEMS IN CART
+	$(document).on("click", ".btn_delete_item", function(){
+		let productId = $(this).data('productid');
+
+		$.post('../controllers/process_delete_in_cart.php', {
+			productId: productId 
+			},function(response){
+				// reload the modal with the new quantity reflected
+				$.get("../partials/templates/cart_modal.php", function(response) {
+					$('.modal .modal-body').html(response);
+				});
+			});
+
+	});
+
+	// GETTING PRODUCT QUANTITY
 	$(document).on("change", ".itemQuantity", function(){		
 		let quantity = $(".itemQuantity").val();		
 		let productId = $(this).data('productid');
@@ -575,10 +569,12 @@ $(document).ready( () => {
 		}, function(response){
 			// reload the modal with the new quantity reflected
 			$.get("../partials/templates/cart_modal.php", function(response) {
-				$('.modal .modal-content').html(response);
+				$('.modal .modal-body').html(response);
 			});
 		});
 	})
+
+	
 	
 
 });

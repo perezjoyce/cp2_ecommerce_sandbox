@@ -40,17 +40,18 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
+                <!-- STATED HERE SO BUTTON IS STILL DISABLED WHEN YOU RETURN -->
                 <?php
                   if($count) {
                 ?>
                     <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' disabled>
                       <i class='fas fa-cart-plus'></i>
-                      Item already in your shopping cart
+                       Item is already in your cart!
                   </button>
                 <?php } else {?>
                     <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
                       <i class='fas fa-cart-plus'></i>
-                      Add to Cart
+                       Add to Cart
                     </a>
                 <?php }?>
 

@@ -14,6 +14,7 @@
 				<?php 
 
 					// DISPLAYING CATEGORY ON TOP OF LIST GROUP
+					//@ so undefined index won't appear on screen when  you haven't interacted w/ the page yet(i.e. when page loads)
 					$id = @$_GET['id'];
 			      
 			      	$sql = "SELECT * FROM tbl_categories WHERE id = $id";
@@ -31,9 +32,6 @@
 	               	}
 
 
-
-			      			
-
 		      		// DISPLAYING ALL AVAILABLE CATEGORIES
 		      		$sql = "SELECT * FROM tbl_categories";
 		      		$result = mysqli_query($conn,$sql);
@@ -47,10 +45,8 @@
 
 			      				echo 
 			      				"<div class='list-group'>
-											<a href='catalog2.php?id=$id'>
-												<button class='list-group-item btn-block' onclick='showCategories($id) id=$id'>
+											<a href='catalog2.php?id=$id' class='list-group-item btn-block' onclick='showCategories($id) id=$id'>
 													$name
-												</button>
 											</a>
 			      				</div>";
 
@@ -82,12 +78,7 @@
 			</div>
 
 
-
-			
-		
 			 <!-- END OF LEFT COLUMN -->
-
-
 			<div class="col-lg-9">
 
 				<div class="row">
@@ -112,7 +103,7 @@
 
    
 			        <?php 
-
+						//@ so undefined index won't appear on screen when  you haven't interacted w/ the page yet(i.e. when page loads)
 			   		  $id = @$_GET['id'];
 								//make sql statement to select all columns in tbl_items
 								
