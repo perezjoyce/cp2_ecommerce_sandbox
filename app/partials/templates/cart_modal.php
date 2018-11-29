@@ -28,6 +28,7 @@
         <?php
         $count = mysqli_num_rows($result);
         $totalPrice = 0;
+      
         if($count) :
             while($row = mysqli_fetch_assoc($result)){ 
                 $name = $row['name'];
