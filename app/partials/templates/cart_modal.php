@@ -2,6 +2,7 @@
 
     session_start(); 
     require_once "../../controllers/connect.php";
+    require_once "../../controllers/functions.php";
 
     $cartSession = $_SESSION['cart_session'];
     
@@ -31,6 +32,7 @@
       
         if($count) :
             while($row = mysqli_fetch_assoc($result)){ 
+                $id =  $row['productId'];
                 $name = $row['name'];
                 $price = $row['price'];
                 $quantity = $row['quantity'];
@@ -44,16 +46,16 @@
                     <br>
                     <img class="unitImage" src="<?= $image ?>" style='width:50px;height:50px;'> 
                 </td>
-                <td>&#8369; <span class="unitPrice"> <?= $price ?> </span> </td>
+                <td>&#8369; <span class="unitPrice<?= $id ?>"> <?= $price ?> </span> </td>
                 <td> <input class='itemQuantity' 
                             type="number" 
                             style='width:50px;' 
-                            value="<?= $quantity ?>"
-                            data-productid="<?= $row['productId'] ?>"
+                            value='<?= $quantity ?>'
+                            data-id="<?= $id ?>"
                             min="1" 
                             max="99" 
                             onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
-                <td>&#8369; <span class="totalPrice"> <?= $price * $quantity ?> </span> </td>
+                <td>&#8369; <span class="totalPrice<?= $id ?>"> <?= $price * $quantity ?> </span> </td>
                 <td> 
                     <a data-productid='<?= $row['productId'] ?>' role='button' class="btn_delete_item">
                         Delete

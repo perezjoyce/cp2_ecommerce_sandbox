@@ -567,9 +567,29 @@ $(document).ready( () => {
 	});
 
 	// ADDING PRODUCT QUANTITY
-	$(document).on("change", ".itemQuantity", function(){		
-		let quantity = $(".itemQuantity").val();		
-		let productId = $(this).data('productid');
+	// $(document).on("click", ".itemQuantity", function(){		
+	// 	let quantity = $(this).val();		
+	// 	let productId = $(this).data('productid');
+	// 	$.post('../controllers/add_product_quantity.php', {
+	// 		quantity: quantity,
+	// 		productId: productId
+	// 	}, function(response){
+	// 		// reload the modal with the new quantity reflected
+	// 		$.get("../partials/templates/cart_modal.php", function(response) {
+	// 			$('.modal .modal-body').html(response);
+	// 		});
+	// 	});
+	// })
+
+
+	//GETTING PRODUCT QUANTITY -- probably working OR the prob is in cart_modal code
+	$(document).on("click", ".itemQuantity", function(){	
+		let productId = $(this).attr('data-id');
+		let unitPrice = $(".unitPrice"+productId).text();	
+		let quantity = $(this).val();
+		let totalPrice = unitPrice * quantity;
+
+		$(".totalPrice").text(totalPrice);	
 		$.post('../controllers/add_product_quantity.php', {
 			quantity: quantity,
 			productId: productId
@@ -578,17 +598,7 @@ $(document).ready( () => {
 			$.get("../partials/templates/cart_modal.php", function(response) {
 				$('.modal .modal-body').html(response);
 			});
-		});
-	})
-
-
-	// GETTING PRODUCT QUANTITY -- probably working OR the prob is in cart_modal code
-	$(document).on("change", ".itemQuantity", function(){		
-		let unitPrice = $(".unitPrice").html();	
-		let quantity = $(".itemQuantity").val();
-		let totalPrice = unitPrice * quantity;
-
-		$(".totalPrice").html(totalPrice);		
+		});	
 		// let productId = $(this).data('productid');
 		// $.post('../controllers/add_product_quantity.php', {
 		// 	quantity: quantity,
@@ -599,7 +609,7 @@ $(document).ready( () => {
 		// 		$('.modal .modal-body').html(response);
 		// 	});
 		// });
-	})
+	});
 
 
 	

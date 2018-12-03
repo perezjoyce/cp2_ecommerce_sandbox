@@ -1,5 +1,7 @@
 <?php 
 
+    require_once "connect.php";
+
     function hide_email($email){
         $em   = explode("@",$email);
         $name = implode(array_slice($em, 0, count($em)-1), '@');
@@ -41,6 +43,8 @@
     
         return $dst;
     }
+
+    // function getProductId($conn, )
 
 
     	
