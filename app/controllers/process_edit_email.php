@@ -1,9 +1,9 @@
 <?php
 	session_start();
+	require_once "connect.php";
 
-	if(isset($_SESSION['id'])) {
+	if(isset($_SESSION['id'])) :
 		
-		require_once "connect.php";
 		if (isset($_POST['email'])) {
 			$user_id = $_POST['id'];
 			$email = $_POST['email']; 
@@ -33,4 +33,4 @@
 			echo "process_email.php did not receive variable";
 			//var_dump($email); die(); //NULL
 		}
-	}
+	endif;

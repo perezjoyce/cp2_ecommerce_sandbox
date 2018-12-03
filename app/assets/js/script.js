@@ -153,7 +153,7 @@ $(document).ready( () => {
 		}
 
 		//password and cpass verification
-		if (password !== cpass) {
+		if (password != cpass) {
 			$("#cpass").next().html("Password don't match!");
 			error_flag = 1;
 		} else {
@@ -560,6 +560,7 @@ $(document).ready( () => {
 				// reload the modal with the new quantity reflected
 				$.get("../partials/templates/cart_modal.php", function(response) {
 					$('.modal .modal-body').html(response);
+					// $("#btn_add_to_cart").replaceWith("<a class=\"btn btn-outline-primary mt-3 flex-fill mr-2\"><i class=\"fas fa-cart-plus\"></i> Add to Cart</a>");
 				});
 			});
 
@@ -586,6 +587,7 @@ $(document).ready( () => {
 		let unitPrice = $(".unitPrice").html();	
 		let quantity = $(".itemQuantity").val();
 		let totalPrice = unitPrice * quantity;
+
 		$(".totalPrice").html(totalPrice);		
 		// let productId = $(this).data('productid');
 		// $.post('../controllers/add_product_quantity.php', {

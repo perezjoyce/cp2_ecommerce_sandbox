@@ -1,9 +1,9 @@
 <?php
     session_start();
+    require_once "connect.php";
 
-    if(isset($_SESSION['id'])) {
+    if(isset($_SESSION['id'])) :
         
-        require_once "connect.php";
         if (isset($_POST['username'])) {
             $user_id = $_POST['id'];
             $username = $_POST['username']; 
@@ -28,4 +28,4 @@
             echo "process_edit_uname.php did not receive variable";
             
         }
-    }
+    endif;

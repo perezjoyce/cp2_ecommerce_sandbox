@@ -2,10 +2,10 @@
 // ================= ERROR MESSAGE WHEN INPUT FIELDS ARE LEFT BLANK ===============
 // ================= ERROR WHEN REQUIRED LENGHT OF USERNAME IS NOT MET ===============
 	session_start();
+	require_once "connect.php";
 
-	if(isset($_SESSION['id'])) {
+	if(isset($_SESSION['id'])) :
 		
-		require_once "connect.php";
 		$address = $_POST['address'];
 		// $password = sha1($_POST['password']);
 
@@ -17,7 +17,7 @@
 		} else {
 			echo "fail";
 		}
-	}
+	endif;
 
 
 ?>

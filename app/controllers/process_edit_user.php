@@ -1,10 +1,10 @@
 <?php
 	session_start();
+	require_once "connect.php";
 
 	if(isset($_SESSION['id'])) {
-		 
-		require_once "connect.php";
-		if (isset($_POST['password'])) {
+	 	
+		if (isset($_POST['password'])) :
 
 			$id = $_POST['id'];
 			$fname = $_POST['fname'];
@@ -38,6 +38,6 @@
 		} else {
 			echo "process_edit_user.php did not receive variables";
 		}
-	}
+	endif;
 
 		

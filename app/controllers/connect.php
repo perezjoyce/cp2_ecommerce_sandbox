@@ -6,11 +6,10 @@
 	$db_password = "";
 	$db_name = "db_demoStoreNew";
 
-
 	//establish connection to database
 	$conn = mysqli_connect($host, $db_username, $db_password, $db_name);
 
 	//check connection
-	if(!$conn) {
+	if(!$conn) :
 		die("Connection failed: " . mysqli_error($conn));
-	}
+	endif;

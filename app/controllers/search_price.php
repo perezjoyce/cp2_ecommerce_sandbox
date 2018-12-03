@@ -1,6 +1,6 @@
 <?php
 	// connect to database
-	include_once "connect.php";
+	require_once "connect.php";
 
 	$value = $_POST['value'];
 	$data = '';
@@ -38,10 +38,9 @@
 					</div>
 				</a>
 			</div>";
-		}
+			}
 		}
 
-	
 
 	echo $data;
 

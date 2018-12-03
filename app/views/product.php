@@ -48,7 +48,8 @@
                        Item is already in your cart!
                   </button>
                 <?php } else {?>
-                    <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' role='button' id="btn_add_to_cart">
+                    <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' id="btn_add_to_cart">
+         <!--              <input type="hidden" id="<?= $id ?>"> -->
                       <i class='fas fa-cart-plus'></i>
                        Add to Cart
                     </a>

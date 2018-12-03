@@ -3,7 +3,7 @@
 	require_once "connect.php";
 
 
-	if (isset($_POST['email'])) {
+	if (isset($_POST['email'])) :
 
 		$email = $_POST['email'];
 	
@@ -31,3 +31,5 @@
 		echo "process_email.php did not receive variable";
 		//var_dump($email); die(); //NULL
 	}
+
+	endif;
