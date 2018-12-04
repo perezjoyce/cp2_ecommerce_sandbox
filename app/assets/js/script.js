@@ -589,25 +589,31 @@ $(document).ready( () => {
 
 
 	// CHECKOUT
-	// $("#btn_checkout").on("click",function(){
-	// 	let cartSessionId = $(this).attr("data-id");
+	$("#btn_final_checkout").on("click",function(){
+		let cartSessionId = $(this).attr("data-id");
+		let shippingAddress = $("#shipping_address").val();
 
-	// 	$.ajax({
-	// 		url: "../controllers/process_add_to_cart.php",
-	// 		method: "POST",
-	// 		data: {
-	// 			cartSessionId: cartSessionId
-	// 		},
-	// 		dataType: "text",
-	// 		success: function(data) {
-	// 		// 	$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
-	// 		// 	let sum = "";
-	// 		// 	sum += data;
-	// 		// 	$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
-	// 		}
-	// 	});
+		if (shippingAddress == "") {
+			$("#checkout_error_message").css("color", "red");
+			$("#checkout_error_message").text("Shipping Address is required");
+		}
 
-	// });
+		$.ajax({
+			url: "../controllers/process_add_to_cart.php",
+			method: "POST",
+			data: {
+				cartSessionId: cartSessionId
+			},
+			dataType: "text",
+			success: function(data) {
+			// 	$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
+			// 	let sum = "";
+			// 	sum += data;
+			// 	$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+			}
+		});
+
+	});
 
 
 
