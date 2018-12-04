@@ -436,7 +436,7 @@ $(document).ready( () => {
 
 
 	// MODAL
-	$('.modal-link').on('click', function(){
+	$(document).on('click', '.modal-link', function(){
 		const url = $(this).data('url');
 		const id = $(this).data('id');
 
@@ -566,23 +566,8 @@ $(document).ready( () => {
 
 	});
 
-	// ADDING PRODUCT QUANTITY
-	// $(document).on("click", ".itemQuantity", function(){		
-	// 	let quantity = $(this).val();		
-	// 	let productId = $(this).data('productid');
-	// 	$.post('../controllers/add_product_quantity.php', {
-	// 		quantity: quantity,
-	// 		productId: productId
-	// 	}, function(response){
-	// 		// reload the modal with the new quantity reflected
-	// 		$.get("../partials/templates/cart_modal.php", function(response) {
-	// 			$('.modal .modal-body').html(response);
-	// 		});
-	// 	});
-	// })
 
-
-	//GETTING PRODUCT QUANTITY -- probably working OR the prob is in cart_modal code
+	//GETTING PRODUCT QUANTITY 
 	$(document).on("click", ".itemQuantity", function(){	
 		let productId = $(this).attr('data-id');
 		let unitPrice = $(".unitPrice"+productId).text();	
@@ -599,17 +584,31 @@ $(document).ready( () => {
 				$('.modal .modal-body').html(response);
 			});
 		});	
-		// let productId = $(this).data('productid');
-		// $.post('../controllers/add_product_quantity.php', {
-		// 	quantity: quantity,
-		// 	productId: productId
-		// }, function(response){
-		// 	// reload the modal with the new quantity reflected
-		// 	$.post("../partials/templates/cart_modal.php", function(response) {
-		// 		$('.modal .modal-body').html(response);
-		// 	});
-		// });
+		
 	});
+
+
+	// CHECKOUT
+	// $("#btn_checkout").on("click",function(){
+	// 	let cartSessionId = $(this).attr("data-id");
+
+	// 	$.ajax({
+	// 		url: "../controllers/process_add_to_cart.php",
+	// 		method: "POST",
+	// 		data: {
+	// 			cartSessionId: cartSessionId
+	// 		},
+	// 		dataType: "text",
+	// 		success: function(data) {
+	// 		// 	$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
+	// 		// 	let sum = "";
+	// 		// 	sum += data;
+	// 		// 	$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+	// 		}
+	// 	});
+
+	// });
+
 
 
 	

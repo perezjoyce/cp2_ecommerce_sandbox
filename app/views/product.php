@@ -39,26 +39,36 @@
               <div class='my-5'> <?= $description ?> </div>
               
               <div class='d-flex flex-row'>
-                <!-- STATED HERE SO BUTTON IS STILL DISABLED WHEN YOU RETURN -->
-                <?php
-                  if($count) {
-                ?>
-                    <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' disabled>
-                      <i class='fas fa-cart-plus'></i>
-                       Item is already in your cart!
-                  </button>
-                <?php } else {?>
-                    <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' id="btn_add_to_cart">
-         <!--              <input type="hidden" id="<?= $id ?>"> -->
-                      <i class='fas fa-cart-plus'></i>
-                       Add to Cart
-                    </a>
-                <?php }?>
+                  <!-- STATED HERE SO BUTTON IS STILL DISABLED WHEN YOU RETURN -->
+                  <?php
+                  if(isset($_SESSION['cart_session'])){
+                    if($count) {
+                  
+                  ?>
+                      <button class='btn btn-outline-secondary mt-3 flex-fill mr-2' disabled>
+                        <i class='fas fa-cart-plus'></i>
+                         Item is already in your cart!
+                      </button>
+                  <?php } else {?>
+                      <a class='btn btn-outline-primary mt-3 flex-fill mr-2' data-id='<?= $id ?>' id="btn_add_to_cart">
+                        <i class='fas fa-cart-plus'></i>
+                         Add to Cart
+                      </a>
+                  <?php } }?>
 
-                <button class='btn btn-outline-danger mt-3 flex-fill'>
-                  <i class="far fa-heart"></i>
-                  Add to Wish List
-                </button>
+                <!--  WISHLIST -->
+                
+                  <?php
+                  if(isset($_SESSION['id'])){
+                  ?>
+                      <button class='btn btn-outline-danger mt-3 flex-fill'>
+                        <i class="far fa-heart"></i>
+                        Add to Wish List
+                      </button>
+                  <?php } else {?>
+                      <!-- blank -->
+                  <?php } ?>
+                
               </div>
 
             </div>

@@ -58,3 +58,7 @@ card-title {
 .user-photo {
     max-width: 80px;
 }
+
+#landing {
+    min-height: 50vh;
+}

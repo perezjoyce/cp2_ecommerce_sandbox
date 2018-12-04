@@ -84,6 +84,15 @@
 
     <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
     <!-- indicate id for button -->
-    <button type="button" class="btn btn-block btn-outline-success mb-5" id="btn_checkout">CHECKOUT</button>
+    <a  class="btn btn-block btn-outline-success modal-link mb-5" id="btn_checkout" data-id='<?= $cartSession ?>' data-url='../partials/templates/checkout_modal.php'>CHECK OUT</a>
+
+    <!-- <button type="button" class="btn btn btn-block btn-outline-success mb-5" data-toggle="modal" data-target="#checkout_modal2">CHECK OUT</button> -->
 
 </form>
+
+<?php require_once "../modal_container.php"; ?>
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="checkout_modal2" role="dialog">
+<div class="modal-dialog">
+

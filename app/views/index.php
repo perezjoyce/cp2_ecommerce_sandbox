@@ -2,16 +2,16 @@
 <?php require_once "../controllers/connect.php";?>
 
     <!-- PAGE CONTENT -->
+    <div class="container-fluid border">
+      <div class="row">
+
+      <div id="landing"></div>
+      <!-- LANDING PAGE -->
+      </div>
+
+    </div>
+
     <div class="container">
-
-        <!-- JUMBOTRON -->
-        <header class="jumbotron mb-5">
-          <h1 class="display-3">A Warm Welcome!</h1>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-          <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
-        </header>
-        <!-- /JUMBOTRON -->
-
       <!-- PRODUCTS -->
       <div class="row">
         
@@ -33,7 +33,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
           <a href="product.php?id=<?= $id ?>">
             <div class = 'card h-700'>
-              <img src="<?= $item_img ?>" > 
+              <img class='card-img-top' src="<?= $item_img ?>" > 
               <div class="card-body">
                 <div class='font-weight-bold'>
                   <?= $name ?>
