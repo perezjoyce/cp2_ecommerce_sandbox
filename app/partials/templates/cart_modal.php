@@ -6,7 +6,7 @@
 
     $cartSession = $_SESSION['cart_session'];
     
-    $sql = "SELECT c.*, p.img_path, p.name, p.price, p.id as productId
+    $sql = "SELECT c.*, p.stocks, p.img_path, p.name, p.price, p.id as productId
     FROM tbl_carts c 
     JOIN tbl_items p on p.id=c.item_id 
     WHERE cart_session='" . $cartSession. "'";
@@ -35,6 +35,7 @@
                 $id =  $row['productId'];
                 $name = $row['name'];
                 $price = $row['price'];
+                $stocks = $row['stocks'];
                 $quantity = $row['quantity'];
                 $image = $row['img_path'];
                 $totalPrice = $totalPrice + ($price * $quantity);
@@ -53,8 +54,13 @@
                             value='<?= $quantity ?>'
                             data-id="<?= $id ?>"
                             min="1" 
-                            max="99" 
-                            onKeyUp="if(this.value>99){this.value='99';}else if(this.value<1){this.value='1';}"></td>
+                            max="<?= $stocks ?>">
+                    <div class='mt-5'>
+                    <?php $stocks = $stocks - $quantity ?>
+                        <span> <?= $stocks ?></span> 
+                        <span>stock/s left</span>
+                  </div>
+                </td>
                 <td>&#8369; <span class="totalPrice<?= $id ?>"> <?= $price * $quantity ?> </span> </td>
                 <td> 
                     <a data-productid='<?= $row['productId'] ?>' role='button' class="btn_delete_item">
@@ -66,6 +72,8 @@
             }
         endif;
         ?>
+
+
 
     </table>
 

@@ -531,12 +531,15 @@ $(document).ready( () => {
 	// ADDING ITEMS TO CART
 	$("#btn_add_to_cart").on("click",function(){
 		let productId = $(this).attr("data-id");
+		// let stocks = $('#stocksLeft'+productId).text();
+		// stocks = parseInt(stocks) ;
 
 		$.ajax({
 			url: "../controllers/process_add_to_cart.php",
 			method: "POST",
 			data: {
-				productId: productId
+				productId: productId,
+				// stocks: stocks
 			},
 			dataType: "text",
 			success: function(data) {
@@ -544,6 +547,9 @@ $(document).ready( () => {
 				let sum = "";
 				sum += data;
 				$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
+
+				// let difference = stocks - sum;
+				// $('#stocksLeft'+productId).text(difference);
 			}
 		});
 
@@ -589,34 +595,38 @@ $(document).ready( () => {
 
 
 	// CHECKOUT
-	$("#btn_final_checkout").on("click",function(){
+	$(document).on("click", "#btn_place_order", function(){
 		let cartSessionId = $(this).attr("data-id");
 		let shippingAddress = $("#shipping_address").val();
+		let paymentMethod = $('#paymentMethod'+cartSessionId).val();
 
-		if (shippingAddress == "") {
+		if (shippingAddress === "") {
 			$("#checkout_error_message").css("color", "red");
 			$("#checkout_error_message").text("Shipping Address is required");
+		} else {
+
+			$.ajax({
+				url: "../controllers/process_place_order.php",
+				method: "POST",
+				data: {
+					cartSessionId: cartSessionId,
+					shippingAddress: shippingAddress,
+					paymentMethod: paymentMethod
+
+				},
+				dataType: "text",
+				success: function(data) {
+				$.get("../partials/templates/confirmation_modal.php", function(response) {
+				$('.modal .modal-body').html(data);
+			});
+				}
+			});
+
 		}
 
-		$.ajax({
-			url: "../controllers/process_add_to_cart.php",
-			method: "POST",
-			data: {
-				cartSessionId: cartSessionId
-			},
-			dataType: "text",
-			success: function(data) {
-			// 	$("#btn_add_to_cart").replaceWith("<button class=\"btn btn-outline-secondary mt-3 flex-fill mr-2\" disabled><i class=\"fas fa-cart-plus\"></i> Item added to cart!</button>");
-			// 	let sum = "";
-			// 	sum += data;
-			// 	$("#item-count").html("<span class='badge badge-primary text-light'>" + sum + "</span>");
-			}
-		});
+		
 
 	});
-
-
-
 	
 	
 

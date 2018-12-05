@@ -14,6 +14,7 @@
   $price = $row['price'];
   $description = $row['description'];
   $item_img = $row['img_path'];
+  $stocks = $row['stocks'];
 
 
   $sql = " SELECT * FROM tbl_carts WHERE cart_session='$cartSession' AND item_id=$id";
@@ -35,8 +36,13 @@
           <div class='d-flex flex-row'>
             <div class='d-flex flex-column'>
               <div class='card-title font-weight-bold'> <?= $name ?> </div>
-              <div class='mb-5'>&#8369; <?= $price ?> </div>
+              <div class='mb-2'>&#8369; <?= $price ?> </div>
+              <div>
+                <span id='stocksLeft<?= $id ?>'> <?= $stocks ?></span> 
+                <span class='mb-5'>stock/s left</span>
+              </div>
               <div class='my-5'> <?= $description ?> </div>
+
               
               <div class='d-flex flex-row'>
                   <!-- STATED HERE SO BUTTON IS STILL DISABLED WHEN YOU RETURN -->

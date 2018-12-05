@@ -6,13 +6,18 @@ require_once "../../controllers/functions.php";
 
 if(isset($_SESSION['id'])) {
 
+    // $userId = $_SESSION['id'];
 	$cartSession = $_SESSION['cart_session'];
+
+    // $sql = " INSERT INTO tbl_carts (user_id, cart_session) VALUES ($userId, '$cartSession') WHERE cart_session = '$cartSession' ";
+    // $result = mysqli_query($conn, $sql);
     
-    $sql = "SELECT c.*, p.img_path, p.name, p.price, p.id as productId
+    $sql = "SELECT c.*, p.stocks, p.img_path, p.name, p.price, p.id as productId
     FROM tbl_carts c 
     JOIN tbl_items p on p.id=c.item_id 
     WHERE cart_session='" . $cartSession. "'";
     $result = mysqli_query($conn, $sql);
+    $count = mysqli_num_rows($result);
 
 } else {
 	// direct to login modal
@@ -37,11 +42,12 @@ if(isset($_SESSION['id'])) {
 
 
      <?php
-        $count = mysqli_num_rows($result);
+        
         $totalPrice = 0;
       
         if($count) :
             while($row = mysqli_fetch_assoc($result)){ 
+                $cartId = $row['id'];
                 $id =  $row['productId'];
                 $name = $row['name'];
                 $price = $row['price'];
@@ -86,7 +92,7 @@ if(isset($_SESSION['id'])) {
    
 	 <label class='font-weight-bold'>Payment Method</label>
 	 <div class='input-group mb-5'>
-	    <select class="custom-select" id="priceOrder" onchange="priceOrder">
+	    <select class="custom-select" id="paymentMethod<?= $cartId ?>">
 		    <option selected="cod">COD</option>
 		    <option value="paypal">PayPal</option>
 		    <option value="bayadcenter">Bayad Center</option>
@@ -99,8 +105,9 @@ if(isset($_SESSION['id'])) {
 
     <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
     <!-- indicate id for button -->
+    <!-- upon submission, bawas total quantity to stocks left -->
     <div class='d-flex flex-row'>
-    	<a  class="btn btn-outline-success mb-5 mr-3 flex-grow-1" id="btn_final_checkout" data-id='<?= $cartSession ?>' data-url='#'>SUBMIT</a>
+    	<a  class="btn btn-outline-success mb-5 mr-3 flex-grow-1" id="btn_place_order" data-userId='<?= $userId ?>' data-id='<?= $cartId ?>' data-url='#'>SUBMIT</a>
 
     	<a  class="btn btn-outline-primary modal-link mb-5" id="btn_checkout" data-id='<?= $cartSession ?>' data-url='../partials/templates/cart_modal.php'>BACK</a>
     </div>
