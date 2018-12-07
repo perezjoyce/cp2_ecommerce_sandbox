@@ -614,7 +614,7 @@ $(document).ready( () => {
 					paymentMethod: paymentMethod
 
 				},
-				success: function(data) {
+				success: function(response) {
 
 				$.get("../partials/templates/confirmation_modal.php", function(response) {
 					$('.modal .modal-body').html(response);

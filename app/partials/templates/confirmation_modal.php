@@ -26,12 +26,10 @@
     <label>Transaction Code</label>
     <div class="mb-5 text-danger"><?= $transactionCode ?></div>
 
-    <div class="mb-5">Thank you for shopping!</div>
+    <div class="mb-5">Thank you for shopping! Your order is being processed.</div>
 
     
-    <a  class="btn btn-block btn-outline-success modal-link mb-5" data-url='index.php'>CHECK OUT</a>
-
-    <!-- <button type="button" class="btn btn btn-block btn-outline-success mb-5" data-toggle="modal" data-target="#checkout_modal2">CHECK OUT</button> -->
+    <a  class="btn btn-block btn-outline-success modal-link mb-5" data-url='index.php'>CLOSE</a>
 
 </form>
 
