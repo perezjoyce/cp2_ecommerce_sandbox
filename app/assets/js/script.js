@@ -609,16 +609,15 @@ $(document).ready( () => {
 				url: "../controllers/process_place_order.php",
 				method: "POST",
 				data: {
-					cartSessionId: cartSessionId,
 					shippingAddress: shippingAddress,
 					paymentMethod: paymentMethod
 
 				},
 				success: function(response) {
 
-				$.get("../partials/templates/confirmation_modal.php", function(response) {
-					$('.modal .modal-body').html(response);
-			});
+					$.get("../partials/templates/confirmation_modal.php", function(response) {
+						$('.modal .modal-body').html(response);
+					});
 				}
 			});
 

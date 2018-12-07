@@ -7,18 +7,21 @@
     require_once "connect.php";
 
     if(isset($_SESSION['cart_session'])) {
-        $_SESSION['transaction_code'] = uniqid();
 
+        // $_SESSION['transaction_code'] = uniqid('', true);
+        $unique_num = str_replace(".","",microtime(true)).rand(000,999);
+        $unique_mix = substr(hash('sha256', mt_rand()), 0, 10);
+        $_SESSION['transaction_code'] = $unique_num . " - " . $unique_mix;
         $transactionCode = $_SESSION['transaction_code'];
 
         // var_dump($transactionCode); die();
-        $cartSessionId = $_POST['cartSessionId'];
+        $cartSession = $_SESSION['cart_session'];
         $shippingAddress = $_POST['shippingAddress'];
         $paymentMethod = $_POST['paymentMethod'];
         $userId = $_SESSION['id'];
 
 
-        $sql = " INSERT INTO tbl_place_orders ( purchase_date, payment_method, transaction_code, user_id, cart_id, status_id ) VALUES ( now(), '$paymentMethod', '$transactionCode', $userId, $cartSessionId, 1 ) ";
+        $sql = " INSERT INTO tbl_place_orders ( purchase_date, payment_method, transaction_code, user_id, cart_session, status_id ) VALUES ( now(), '$paymentMethod', '$transactionCode', $userId, $cartSession, 1 ) ";
         $result = mysqli_query($conn, $sql);
 
         $message = "<form id='form_confirmation'>
@@ -43,7 +46,7 @@
 
             $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
-            //GET USER'S EMAIL
+            //GET USER'S EMAIL // ===> buhayin email variable instead of querying database
             // $sql = " SELECT * FROM tbl_users WHERE user_id = $userId";
             // $result = mysqli_query($conn, $sql);
             // $row = mysqli_fetch_assoc($result);
