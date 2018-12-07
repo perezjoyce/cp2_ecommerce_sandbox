@@ -614,10 +614,10 @@ $(document).ready( () => {
 					paymentMethod: paymentMethod
 
 				},
-				dataType: "text",
 				success: function(data) {
+
 				$.get("../partials/templates/confirmation_modal.php", function(response) {
-				$('.modal .modal-body').html(data);
+					$('.modal .modal-body').html(response);
 			});
 				}
 			});

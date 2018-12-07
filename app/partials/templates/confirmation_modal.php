@@ -7,7 +7,7 @@
     
     $sql = " SELECT * FROM tbl_place_orders ";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result));
+    $row = mysqli_fetch_assoc($result);
     
 
     $transactionCode = $row['transaction_code'];
@@ -24,7 +24,7 @@
     <br>
 
     <label>Transaction Code</label>
-    <div class="my-5"><?= $transactionCode ?></div>
+    <div class="mb-5 text-danger"><?= $transactionCode ?></div>
 
     <div class="mb-5">Thank you for shopping!</div>
 
