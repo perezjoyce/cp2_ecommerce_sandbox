@@ -20,6 +20,12 @@
 			$_SESSION['id'] = $id; 
 			$response = ['status' => 'loggedIn', 'id' => $id];
 
+			$userId = $_SESSION['id'];
+			$cartSession = $_SESSION['cart_session'];
+
+			$sql = " UPDATE tbl_carts SET user_id = $userId WHERE cart_session= '$cartSession' ";
+			$result = mysqli_query($conn, $sql);
+
 		} else {
 			$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];
 		}

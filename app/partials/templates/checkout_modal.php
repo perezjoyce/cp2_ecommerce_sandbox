@@ -47,7 +47,6 @@ if(isset($_SESSION['id'])) {
       
         if($count) :
             while($row = mysqli_fetch_assoc($result)){ 
-                $cartId = $row['id'];
                 $id =  $row['productId'];
                 $name = $row['name'];
                 $price = $row['price'];
@@ -87,16 +86,53 @@ if(isset($_SESSION['id'])) {
     </table>
 
     <label class='font-weight-bold'>Shipping Address</label>
-    <input type='text' id='shipping_address' class='form-control mb-5'>
+     <?php 
+        $userId = $_SESSION['id'];
+        $sql = "SELECT * FROM tbl_addresses WHERE user_id = $userId "; 
+             $result = mysqli_query($conn, $sql);
+             $count = mysqli_num_rows($result);
 
+            if(!$count) {
+    ?>
+
+            <input type='text' id='shipping_address' class='form-control'>
+            <select class="custom-select" id="address_type">
+                <option value='home'>home</option>
+                <option value='office'>office</option>
+            </select>
+            
+    <?php } else { ?>
+
+
+            <select class="custom-select mb-5" id="paymentMethod">
+    <?php 
+             while($row = mysqli_fetch_assoc($result)){ 
+                    $id =  $row['id'];
+                    $name = $row['name'];
+            
+            echo "<option class='$addressType' value='$id'>$name .', '. $addressType</option>";
    
-	 <label class='font-weight-bold'>Payment Method</label>
-	 <div class='input-group mb-5'>
-	    <select class="custom-select" id="paymentMethod<?= $cartId ?>">
-		    <option selected="cod">COD</option>
-		    <option value="paypal">PayPal</option>
-		    <option value="bayadcenter">Bayad Center</option>
-		 </select>
+
+    } } ?>
+        </select> 
+
+
+
+        <label class='font-weight-bold mt-5'>Payment Method</label>
+        <select class="custom-select mb-5" id="paymentMethod">
+
+         <?php $sql = "SELECT * FROM tbl_payment_modes "; 
+             $result = mysqli_query($conn, $sql);
+             while($row = mysqli_fetch_assoc($result)){ 
+                    $id =  $row['id'];
+                    $name = $row['name'];
+    
+		      echo "<option value='$id'>$name</option>";
+
+         } ?>
+		</select>
+
+
 	 </div>
        
 
@@ -107,7 +143,7 @@ if(isset($_SESSION['id'])) {
     <!-- indicate id for button -->
     <!-- upon submission, bawas total quantity to stocks left -->
     <div class='d-flex flex-row'>
-    	<a  class="btn btn-outline-success mb-5 mr-3 flex-grow-1" id="btn_place_order" data-userId='<?= $userId ?>' data-id='<?= $cartId ?>' data-url='#'>SUBMIT</a>
+    	<a  class="btn btn-outline-success mb-5 mr-3 flex-grow-1" id="btn_place_order" data-userId='<?= $userId ?>' data-id='<?= $cartSession ?>' data-url='#'>SUBMIT</a>
 
     	<a  class="btn btn-outline-primary modal-link mb-5" id="btn_checkout" data-id='<?= $cartSession ?>' data-url='../partials/templates/cart_modal.php'>BACK</a>
     </div>

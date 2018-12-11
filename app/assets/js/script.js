@@ -596,36 +596,33 @@ $(document).ready( () => {
 
 	// CHECKOUT
 	$(document).on("click", "#btn_place_order", function(){
-		let cartSessionId = $(this).attr("data-id");
 		let shippingAddress = $("#shipping_address").val();
-		let paymentMethod = $('#paymentMethod'+cartSessionId).val();
+		let addressType = $("#address_type").val();
+		let paymentMethod = $('#paymentMethod').val();
 
 		if (shippingAddress === "") {
 			$("#checkout_error_message").css("color", "red");
 			$("#checkout_error_message").text("Shipping Address is required");
 		} else {
 
-			$.ajax({
-				url: "../controllers/process_place_order.php",
-				method: "POST",
-				data: {
+			$.post("../controllers/process_place_order.php", {
+					addressType: addressType,
 					shippingAddress: shippingAddress,
 					paymentMethod: paymentMethod
-
-				},
-				success: function(response) {
+				}, function(response) {
 
 					$.get("../partials/templates/confirmation_modal.php", function(response) {
 						$('.modal .modal-body').html(response);
-					});
-				}
-			});
+					})
 
+				});
+			
 		}
 
 		
 
-	});
+	}); 
+
 	
 	
 

@@ -1,7 +1,5 @@
 <?php
 
-// no need fot this. work directly on checkot_modal.php
-
     session_start(); 
     
     require_once "connect.php";
@@ -14,15 +12,19 @@
         $_SESSION['transaction_code'] = $unique_num . " - " . $unique_mix;
         $transactionCode = $_SESSION['transaction_code'];
 
-        // var_dump($transactionCode); die();
         $cartSession = $_SESSION['cart_session'];
         $shippingAddress = $_POST['shippingAddress'];
         $paymentMethod = $_POST['paymentMethod'];
+        $addressType = $_POST['addressType'];
         $userId = $_SESSION['id'];
 
+        //INSERT/UPDATE ADDRESS TYPE
+        //SELECT ADDRESS TYPE AND INSERT IT INTO TBL_PLACE_ORDERS
 
-        $sql = " INSERT INTO tbl_place_orders ( purchase_date, payment_method, transaction_code, user_id, cart_session, status_id ) VALUES ( now(), '$paymentMethod', '$transactionCode', $userId, $cartSession, 1 ) ";
+
+        $sql = " INSERT INTO tbl_place_orders (payment_mode_id, cart_session, transaction_code, user_id) VALUES ($paymentMethod, '$cartSession', '$transactionCode', $userId) ";
         $result = mysqli_query($conn, $sql);
+
 
         $message = "<form id='form_confirmation'>
                         
@@ -31,7 +33,7 @@
                         <br>
 
                         <label>Transaction Code</label>
-                        <div class='my-5 text-danger'>$transactionCode</div>
+                        <div class='my-5 text-danger'><?= $transactionCode ?></div>
 
                         <div class='mb-5'>Thank you for shopping! Your order is being processed.</div>
 
