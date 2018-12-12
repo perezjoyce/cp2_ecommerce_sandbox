@@ -13,16 +13,12 @@
         $transactionCode = $_SESSION['transaction_code'];
 
         $cartSession = $_SESSION['cart_session'];
-        $shippingAddress = $_POST['shippingAddress'];
+        $shippingAddressId = $_POST['shippingAddressId'];
         $paymentMethod = $_POST['paymentMethod'];
-        $addressType = $_POST['addressType'];
         $userId = $_SESSION['id'];
 
-        //INSERT/UPDATE ADDRESS TYPE
-        //SELECT ADDRESS TYPE AND INSERT IT INTO TBL_PLACE_ORDERS
 
-
-        $sql = " INSERT INTO tbl_place_orders (payment_mode_id, cart_session, transaction_code, user_id) VALUES ($paymentMethod, '$cartSession', '$transactionCode', $userId) ";
+        $sql = "INSERT INTO tbl_place_orders (payment_mode_id, cart_session, transaction_code, user_id, address_id) VALUES ($paymentMethod, '$cartSession', '$transactionCode', $userId, $shippingAddressId) ";
         $result = mysqli_query($conn, $sql);
 
 
@@ -33,7 +29,7 @@
                         <br>
 
                         <label>Transaction Code</label>
-                        <div class='my-5 text-danger'><?= $transactionCode ?></div>
+                        <div class='my-5 text-danger'>$transactionCode</div>
 
                         <div class='mb-5'>Thank you for shopping! Your order is being processed.</div>
 

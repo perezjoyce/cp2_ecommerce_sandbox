@@ -95,32 +95,33 @@ if(isset($_SESSION['id'])) {
             if(!$count) {
     ?>
 
-            <input type='text' id='shipping_address' class='form-control'>
-            <select class="custom-select" id="address_type">
-                <option value='home'>home</option>
-                <option value='office'>office</option>
-            </select>
+            <input type='text' id='new_shipping_address' class='form-control shipping_address'>
             
     <?php } else { ?>
 
-
-            <select class="custom-select mb-5" id="paymentMethod">
+            <input type='hidden' id='new_shipping_address' class='form-control shipping_address'>
+            <select class="custom-select shipping_address" id="existing_shipping_address">
+                <option selected='...'>...</option>
     <?php 
              while($row = mysqli_fetch_assoc($result)){ 
                     $id =  $row['id'];
                     $name = $row['name'];
             
-            echo "<option class='$addressType' value='$id'>$name .', '. $addressType</option>";
+            echo "<option  value='$id'>$name</option>";
    
 
-    } } ?>
-        </select> 
+            } 
+            echo "</select>";
+            echo "<div class='text-right' id='add_shipping_address'>
+                    <a type='button' class='btn btn-outline-secondary'> + Use A Different Address</a>
+                </div>";
+        } ?>
+        
 
 
 
         <label class='font-weight-bold mt-5'>Payment Method</label>
-        <select class="custom-select mb-5" id="paymentMethod">
-
+        <select class="custom-select mb-5" id="payment_method">
          <?php $sql = "SELECT * FROM tbl_payment_modes "; 
              $result = mysqli_query($conn, $sql);
              while($row = mysqli_fetch_assoc($result)){ 
@@ -137,7 +138,7 @@ if(isset($_SESSION['id'])) {
        
 
 
-    <p id="checkout_error_message"></p>
+    <p id="checkout_error_message" class='text-danger'></p>
 
     <!-- if input type is submit, this will automatically submit input to users.php hence change this to button, type to button and remove value SO THAT you can employ validation -->
     <!-- indicate id for button -->

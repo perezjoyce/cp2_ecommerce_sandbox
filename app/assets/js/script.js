@@ -596,18 +596,19 @@ $(document).ready( () => {
 
 	// CHECKOUT
 	$(document).on("click", "#btn_place_order", function(){
-		let shippingAddress = $("#shipping_address").val();
-		let addressType = $("#address_type").val();
-		let paymentMethod = $('#paymentMethod').val();
+		let shippingAddressId = $("#existing_shipping_address").val();
+		let shippingAddressName = $("#new_shipping_address").val();
+		let paymentMethod = $('#payment_method').val();
 
-		if (shippingAddress === "") {
-			$("#checkout_error_message").css("color", "red");
-			$("#checkout_error_message").text("Shipping Address is required");
-		} else {
 
-			$.post("../controllers/process_place_order.php", {
-					addressType: addressType,
-					shippingAddress: shippingAddress,
+		// if(shippingAddressId == "" || shippingAddressName =="" ) {
+		// 	$('#checkout_error_message').text('Shipping address is required');
+		// }
+
+		// Pass address_id -- working
+		if(shippingAddressId !== "" || shippingAddressId !== '...') {
+			$.post("../controllers/process_place_order1.php", {
+					shippingAddressId: shippingAddressId,
 					paymentMethod: paymentMethod
 				}, function(response) {
 
@@ -616,14 +617,68 @@ $(document).ready( () => {
 					})
 
 				});
-			
 		}
 
+		// Pass address name -- to be worked on
+		if (shippingAddressName !== "") {
+			$.post("../controllers/process_place_order2.php", {
+					shippingAddressName: shippingAddressName,
+					paymentMethod: paymentMethod
+				}, function(response) {
+
+					$.get("../partials/templates/confirmation_modal.php", function(response) {
+						$('.modal .modal-body').html(response);
+					})
+
+				});
+		}
+
+
+		// if (shippingAddress === "") {
+		// 	$("#checkout_error_message").css("color", "red");
+		// 	$("#checkout_error_message").text("Shipping Address is required");
+		// } else {
+
+			// $.post("../controllers/process_place_order.php", {
+			// 		shippingAddress: shippingAddress,
+			// 		paymentMethod: paymentMethod
+			// 	}, function(response) {
+
+			// 		$.get("../partials/templates/confirmation_modal.php", function(response) {
+			// 			$('.modal .modal-body').html(response);
+			// 		})
+
+			// 	});
+
+
+		// 	$.ajax({
+		// 	url: "../controllers/process_place_order.php",
+		// 	method: "POST",
+		// 	data: { shippingAddress: shippingAddress, paymentMethod: paymentMethod },
+		// 	success: function(data) {
+		// 		$.get("../partials/templates/confirmation_modal.php", function(response) {
+		// 				$('.modal .modal-body').html(response);
+		// 			});
+		// 	}
+		// });
+			
 		
 
 	}); 
 
+	// ADDING NEW SHIPPING ADDRESSES, INSTEAD OF SELECTING THOSE THAT WERE ALREADY SAVED
+	$(document).on('click', '#add_shipping_address', ()=> {
+		$('#new_shipping_address').attr('type','text');
+		$('#existing_shipping_address').hide();
+		$("#add_shipping_address").replaceWith("<div class='text-right' id='show_shipping_address'><a type='button' class='btn btn-outline-secondary'>Show Saved Addresses</a></div>");
+	})
 	
-	
+	// GOING BACK TO SAVED SHIPPPING ADDRESSES IN CART
+	$(document).on('click', '#show_shipping_address', ()=> {
+		$('#new_shipping_address').attr('type','hidden');
+		$('#new_shipping_address').html("");
+		$('#existing_shipping_address').show();
+		$("#show_shipping_address").replaceWith("<div class='text-right' id='add_shipping_address'><a type='button' class='btn btn-outline-secondary'>+ Use A Different Addresses</a></div>");
+	})
 
 });
