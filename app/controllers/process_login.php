@@ -23,8 +23,16 @@
 			$userId = $_SESSION['id'];
 			$cartSession = $_SESSION['cart_session'];
 
-			$sql = " UPDATE tbl_carts SET user_id = $userId WHERE cart_session= '$cartSession' ";
+			$sql = "SELECT * FROM tbl_carts WHERE cart_session = '$cartSession' ";
 			$result = mysqli_query($conn, $sql);
+
+			if($result) {
+				$sql = "UPDATE tbl_carts SET user_id = $userId WHERE cart_session= '$cartSession'";
+				$result = mysqli_query($conn, $sql);
+			}else {
+				$sql = "INSERT INTO tbl_carts (user_id, cart_session) VALUES (userId, '$cartSession')";
+				$result = mysqli_query($conn, $sql);
+			}
 
 		} else {
 			$response = ['status' => 'loginFailed', 'message' => 'Login Failed'];
@@ -33,5 +41,7 @@
 	} else {
 		$response = ['status' => 'noUsernameProvided', 'message' => 'Username not provided.'];
 	}
+
+
 
 	echo json_encode($response);
