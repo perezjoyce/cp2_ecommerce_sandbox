@@ -249,7 +249,10 @@ $(document).ready( () => {
 				"success": (dataFromPHP) => {
 					let response = $.parseJSON(dataFromPHP);
 
-					if(response.status == "loggedIn") {
+					if(response.status == 'adminLoggedIn') {
+						let data = $.parseJSON(dataFromPHP);
+						location.href="admin.php?id=" + data.id;
+					} else if (response.status == "loggedIn") {
 						let data = $.parseJSON(dataFromPHP);
 						location.href="profile.php?id=" + data.id;
 					} else if (response.status == "loginFailed") {
