@@ -29,7 +29,7 @@
     <div class="mb-5">Thank you for shopping! Your order is being processed.</div>
 
     
-    <a  class="btn btn-block btn-outline-success modal-link mb-5" data-url='index.php'>CLOSE</a>
+    <a  class="btn btn-block btn-outline-success mb-5" href='../controllers/process_close_confirmation.php'>CLOSE</a>
 
 </form>
 

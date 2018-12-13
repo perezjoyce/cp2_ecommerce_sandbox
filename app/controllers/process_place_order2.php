@@ -18,16 +18,10 @@
         $userId = $_SESSION['id'];
 
 
-            //CHECK IF USER'S ADDRESS ALREADY EXISTS
-            $sql = "SELECT * FROM tbl_addresses WHERE user_id = $userId AND name = 'shippingAddressName'";
+            //INSERT NEW ADDRESS TO SAVED ADDRESSES
+            $sql = "INSERT INTO tbl_addresses (user_id, name) VALUES ($userId, '$shippingAddressName')";
             $result = mysqli_query($conn, $sql);
-            $count = mysqli_num_rows($result);
-     
-            //IF IT DOESN'T, INSERT IT
-            if(!$count) {
-                $sql = "INSERT INTO tbl_addresses (user_id, name) VALUES ($userId, '$shippingAddressName')";
-                $result = mysqli_query($conn, $sql);
-            } 
+            // var_dump($sql); die();
 
             //SELECT IT AGAIN TO GET ID
             $sql = "SELECT * FROM tbl_addresses WHERE user_id = $userId AND name = '$shippingAddressName'";

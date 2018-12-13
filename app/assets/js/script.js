@@ -605,6 +605,23 @@ $(document).ready( () => {
 		// 	$('#checkout_error_message').text('Shipping address is required');
 		// }
 
+		// Pass address name -- to be worked on
+		if (shippingAddressName !== "") {
+
+			shippingAddressId = "";
+
+			$.post("../controllers/process_place_order2.php", {
+					shippingAddressName: shippingAddressName,
+					paymentMethod: paymentMethod
+				}, function(response) {
+
+					$.get("../partials/templates/confirmation_modal.php", function(response) {
+						$('.modal .modal-body').html(response);
+					})
+
+				});
+		}
+
 		// Pass address_id -- working
 		if(shippingAddressId !== "" || shippingAddressId !== '...') {
 			$.post("../controllers/process_place_order1.php", {
@@ -619,19 +636,6 @@ $(document).ready( () => {
 				});
 		}
 
-		// Pass address name -- to be worked on
-		if (shippingAddressName !== "") {
-			$.post("../controllers/process_place_order2.php", {
-					shippingAddressName: shippingAddressName,
-					paymentMethod: paymentMethod
-				}, function(response) {
-
-					$.get("../partials/templates/confirmation_modal.php", function(response) {
-						$('.modal .modal-body').html(response);
-					})
-
-				});
-		}
 
 
 		// if (shippingAddress === "") {
